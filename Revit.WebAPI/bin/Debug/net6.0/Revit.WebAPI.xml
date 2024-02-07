@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Revit.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:Revit.WebAPI.Auth.AppSettings">
+            <summary>
+            appsettings.json相关常量Key
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.DataProvider">
+            <summary>
+            DataProvider
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.MsSqlConnection">
+            <summary>
+            MsSqlConnection
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.MySqlConnection">
+            <summary>
+            MySqlConnection
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.CorsOrigins">
+            <summary>
+            CorsOrigins
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.Authentication">
+            <summary>
+            Authentication
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.JwtBearer">
+            <summary>
+            JwtBearer
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.Issuer">
+            <summary>
+            Issuer
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.Audience">
+            <summary>
+            Audience
+            </summary>
+        </member>
+        <member name="F:Revit.WebAPI.Auth.AppSettings.SecurityKey">
+            <summary>
+            SecurityKey
+            </summary>
+        </member>
+        <member name="T:Revit.WebAPI.Auth.R_AuthorizeAttribute">
+            <summary>
+            定义权限的Attribute
+            </summary>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.AccountsController.Get">
+            <summary>
+            获取个人信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.AccountsController.GetPermissions">
+            <summary>
+            获取授权列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.PermissionsController.All">
+            <summary>
+            获取所有权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.PermissionsController.Post(Revit.Entity.Permissions.PermissionCreateDto)">
+            <summary>
+            添加权限
+            </summary>
+            <param name="permissionCreateDto"></param>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.PermissionsController.Put(System.Int64,Revit.Entity.Permissions.PermissionUpdateDto)">
+            <summary>
+            修改权限
+            </summary>
+            <param name="id"></param>
+            <param name="permissionUpdateDto"></param>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.PermissionsController.Delete(System.Int32)">
+            <summary>
+            删除权限
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.UsersController.Get(Revit.Entity.Users.UserPageRequestDto)">
+            <summary>
+            获取用户名称
+            </summary>
+            <param name="userPageRequestDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.UsersController.Post(Revit.Entity.Users.UserCreateDto)">
+            <summary>
+            添加用户
+            </summary>
+            <param name="userCreateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.UsersController.Put(System.Int64,Revit.Entity.Users.UserUpdateDto)">
+            <summary>
+            修改用户
+            </summary>
+            <param name="id"></param>
+            <param name="userUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.UsersController.Delete(System.Int64)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.WebAPI.Extension.AssembleyExtension">
+            <summary>
+            Assembly扩展
+            </summary>
+        </member>
+        <member name="M:Revit.WebAPI.Extension.AssembleyExtension.GetReferanceAssemblies(System.AppDomain)">
+            <summary>
+            获取所有程序集
+            </summary>
+            <param name="domain"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Electric.API.Controllers.RolesController">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.Get(Revit.Entity.Roles.RolePageRequestDto)">
+            <summary>
+            角色搜索
+            </summary>
+            <param name="rolePageRequestDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.GetAll">
+            <summary>
+            获取所有角色列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.SavePermissions(System.Int64,Revit.Entity.Roles.RolePermissionDto)">
+            <summary>
+            保存角色的权限列表
+            </summary>
+            <param name="id">角色Id</param>
+            <param name="rolePermissionDto">以,分割权限Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.GetPermissions(System.Int64)">
+            <summary>
+            获取角色的权限列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.Post(Revit.Entity.Roles.RoleCreateDto)">
+            <summary>
+            添加角色
+            </summary>
+            <param name="roleCreateDto"></param>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.Put(System.Int64,Revit.Entity.Roles.RoleUpdateDto)">
+            <summary>
+            修改角色
+            </summary>
+            <param name="id"></param>
+            <param name="roleUpdateDto"></param>
+        </member>
+        <member name="M:Electric.API.Controllers.RolesController.Delete(System.Int64)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>
