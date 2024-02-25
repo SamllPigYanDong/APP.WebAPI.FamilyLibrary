@@ -13,7 +13,7 @@ WORKDIR /src
 COPY ["Revit.WebAPI/Revit.WebAPI.csproj", "Revit.WebAPI/"]
 RUN dotnet restore "Revit.WebAPI/Revit.WebAPI.csproj"
 COPY . .
-WORKDIR "/src/RevitProgram"
+WORKDIR "/src/Revit.WebAPI"
 RUN dotnet build "Revit.WebAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
