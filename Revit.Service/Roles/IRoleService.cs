@@ -1,8 +1,8 @@
 ﻿using Revit.Entity.Roles;
 
-namespace Revit.Repository.Roles
+namespace Revit.Service.Roles
 {
-    public interface IRoleRepository
+    public interface IRoleService
     {
         List<RoleDto> GetAll();
         RolePageResponseDto Query(RolePageRequestDto requestDto);

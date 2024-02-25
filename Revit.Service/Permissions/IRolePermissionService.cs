@@ -1,9 +1,9 @@
 ﻿using Revit.Entity.Accounts;
 using Revit.Entity.Permissions;
 
-namespace Revit.Repository.Permissions
+namespace Revit.Service.Permissions
 {
-    public interface IRolePermissionRepositiory
+    public interface IRolePermissionService
     {
         /// <summary>
         /// 获取角色权限列表

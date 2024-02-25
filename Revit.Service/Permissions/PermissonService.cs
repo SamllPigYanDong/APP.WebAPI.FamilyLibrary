@@ -2,11 +2,11 @@
 using Revit.Entity.Permissions;
 using Revit.Entity.Users;
 using Revit.EntityFrameworkCore;
-using Revit.Repository.Commons;
+using Revit.Service.Commons;
 
-namespace Revit.Repository.Permissions
+namespace Revit.Service.Permissions
 {
-    public class PermissionRepositiory : BaseRepository, IPermissionRepositiory
+    public class PermissionRepositiory : BaseService, IPermissionService
     {
         private readonly ApplicationDbContext _dbContext;
 

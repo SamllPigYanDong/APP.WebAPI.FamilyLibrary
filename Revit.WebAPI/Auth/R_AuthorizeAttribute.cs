@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Revit.Entity.Accounts;
 using Revit.Entity.Roles;
-using Revit.Repository.Permissions;
-using Revit.Repository.Users;
+using Revit.Service.Permissions;
+using Revit.Service.Users;
 using System.Text.RegularExpressions;
 
 namespace Revit.WebAPI.Auth
@@ -21,9 +21,9 @@ namespace Revit.WebAPI.Auth
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var userName = context.HttpContext.User.Identity?.Name;
-            var userRepository = context.HttpContext.RequestServices.GetService(typeof(IUserRepository)) as IUserRepository;
-            var rolePermissionRepositiory = context.HttpContext.RequestServices.GetService(typeof(IRolePermissionRepositiory)) as IRolePermissionRepositiory;
-            var permissionRepositiory = context.HttpContext.RequestServices.GetService(typeof(IPermissionRepositiory)) as IPermissionRepositiory;
+            var userRepository = context.HttpContext.RequestServices.GetService(typeof(IUserService)) as IUserService;
+            var rolePermissionRepositiory = context.HttpContext.RequestServices.GetService(typeof(IRolePermissionService)) as IRolePermissionService;
+            var permissionRepositiory = context.HttpContext.RequestServices.GetService(typeof(IPermissionService)) as IPermissionService;
 
             //获取账户角色
             var roleNames = userRepository.GetRoles(userName);

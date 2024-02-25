@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Revit.Entity.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace Revit.Entity.Auths
         /// </summary>
         [Required]
         [StringLength(20, MinimumLength = 6)]
+        [JsonConverter(typeof(DesensitizationConvter), 2, 4)]
         public string Password { get; set; }
     }
 }

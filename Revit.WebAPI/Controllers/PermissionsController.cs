@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Revit.Entity.Commons;
 using Revit.Entity.Permissions;
-using Revit.Repository.Permissions;
+using Revit.Service.Permissions;
 using Revit.WebAPI.Auth;
+using Revit.WebAPI.UnitOfWork;
 
 namespace Revit.WebAPI.Controllers
 {
@@ -13,10 +14,10 @@ namespace Revit.WebAPI.Controllers
     [R_Authorize]
     public class PermissionsController : ControllerBase
     {
-        private readonly IPermissionRepositiory _permissionRepositiory;
+        private readonly IPermissionService _permissionRepositiory;
         private readonly IMapper _mapper;
 
-        public PermissionsController(IPermissionRepositiory permissionRepositiory, IMapper mapper)
+        public PermissionsController(IPermissionService permissionRepositiory, IMapper mapper)
         {
             _permissionRepositiory = permissionRepositiory;
             _mapper = mapper;
@@ -27,6 +28,7 @@ namespace Revit.WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("all")]
+        [UnitOfWork(IsTransactional = false)]
         public IActionResult All()
         {
             //获取所有权限

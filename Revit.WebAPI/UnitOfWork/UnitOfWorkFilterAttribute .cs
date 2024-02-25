@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Revit.Service.UnitOfWork;
 using Revit.WebAPI.UnitOfWork;
 
-namespace Revit.Repository.UnitOfWork
+namespace Revit.Service.UnitOfWork
 {
     /// <summary>
     /// 工作单元过滤特性
     /// </summary>
-    public class UnitOfWorkFilterAttribute : UnitOfWorkAttribute
+    public class UnitOfWorkFilterAttribute : ActionFilterAttribute
     {
 
         /// <summary>
@@ -22,7 +23,7 @@ namespace Revit.Repository.UnitOfWork
         {
             _unitOfWorkAttribute = context.ActionDescriptor.EndpointMetadata
                 .FirstOrDefault(x => x.GetType() == typeof(UnitOfWorkAttribute)) as UnitOfWorkAttribute;
-            if (_unitOfWorkAttribute.IsTransactional || _unitOfWorkAttribute == null  )
+            if (_unitOfWorkAttribute == null || _unitOfWorkAttribute.IsTransactional  )
             {
                 return;
             }
@@ -37,7 +38,7 @@ namespace Revit.Repository.UnitOfWork
         /// <param name="context"></param>
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            if (_unitOfWorkAttribute.IsTransactional || _unitOfWorkAttribute == null)
+            if (_unitOfWorkAttribute == null||_unitOfWorkAttribute.IsTransactional )
             {
                 return;
             }

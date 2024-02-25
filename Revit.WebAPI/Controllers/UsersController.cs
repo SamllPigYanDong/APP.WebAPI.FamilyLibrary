@@ -1,14 +1,12 @@
-﻿using Abp.Domain.Uow;
-using Arch.EntityFrameworkCore.UnitOfWork;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Revit.Entity.Commons;
 using Revit.Entity.Users;
-using Revit.Repository.UnitOfWork;
-using Revit.Repository.Users;
+using Revit.Service.UnitOfWork;
+using Revit.Service.Users;
 using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
 
@@ -19,13 +17,13 @@ namespace Revit.WebAPI.Controllers
     [R_Authorize]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController(IUserRepository userRepository
+        public UsersController(IUserService userRepository
             , IHttpContextAccessor httpContextAccessor
             , UserManager<R_User> userManager
             , IMapper mapper

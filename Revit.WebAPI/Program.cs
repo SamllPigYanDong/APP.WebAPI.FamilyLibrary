@@ -1,23 +1,26 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Revit.Entity.Commons;
-using Revit.Entity.Roles;
-using Revit.Entity.Users;
-using Revit.EntityFrameworkCore;
-using Revit.Repository;
-using Revit.Repository.Commons;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.RateLimiting;
 using Revit.WebAPI.Extension;
-using Swashbuckle.AspNetCore.Filters;
-using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//配置host与容器
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterModule(new AutofacModuleRegister());
+});
+
+builder.Services.AddRateLimiter(config => config.AddFixedWindowLimiter("fixed", option =>
+{
+    option.PermitLimit = 100;
+    option.Window = TimeSpan.FromSeconds(10);
+    option.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+    option.QueueLimit = 10;
+
+}));
+
+builder.Logging.AddConsole().AddEventLog();
 
 builder.AddRevitController();
 
@@ -26,7 +29,8 @@ builder.AddRevitDbContext();
 
 builder.AddRevitJWT();
 //Identity注入，添加数据库上下文
-builder.AddRevitRepository();
+builder.AddRevitServices();
+
 builder.AddRevitUnitOfWork();
 
 builder.AddRevitAutoMapper();

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Revit.Entity.Accounts;
 using Revit.Entity.Commons;
 using Revit.Entity.Users;
-using Revit.Repository;
-using Revit.Repository.Permissions;
-using Revit.Repository.UnitOfWork;
+using Revit.Service;
+using Revit.Service.UnitOfWork;
+using Revit.Service.Permissions;
 using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
 
@@ -17,15 +17,21 @@ namespace Revit.WebAPI.Controllers
     [R_Authorize]
     public class AccountsController : ControllerBase
     {
-        private readonly IRolePermissionRepositiory _rolePermissionRepositiory;
+        private readonly IRolePermissionService _rolePermissionRepositiory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
+        private readonly ILogger<AccountsController> _logger;
+        private readonly ILoggerFactory loggerFactory;
 
-        public AccountsController(IRolePermissionRepositiory rolePermissionRepositiory,IHttpContextAccessor httpContextAccessor,UserManager<R_User> userManager)
+        public AccountsController(IRolePermissionService rolePermissionRepositiory,IHttpContextAccessor httpContextAccessor,UserManager<R_User> userManager,ILogger<AccountsController> logger,ILoggerFactory loggerFactory)
         {
             this._rolePermissionRepositiory = rolePermissionRepositiory;
             this._httpContextAccessor = httpContextAccessor;
             this._userManager = userManager;
+            this._logger = logger;
+            var logger1 = loggerFactory.CreateLogger("MyLogLevel");
+            logger1.LogInformation("123");
+            this._logger.LogInformation("成功开启日志");
         }
 
         /// <summary>

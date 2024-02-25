@@ -137,6 +137,44 @@
             <param name="domain"></param>
             <returns></returns>
         </member>
+        <member name="M:Revit.WebAPI.Extension.AutofacModuleRegister.Load(Autofac.ContainerBuilder)">
+            <summary>
+            加载
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:Revit.WebAPI.UnitOfWork.UnitOfWorkAttribute">
+            <summary>
+            工作单元特性
+            </summary>
+        </member>
+        <member name="P:Revit.WebAPI.UnitOfWork.UnitOfWorkAttribute.IsTransactional">
+            <summary>
+            是否关闭事务
+            </summary>
+        </member>
+        <member name="T:Revit.Service.UnitOfWork.UnitOfWorkFilterAttribute">
+            <summary>
+            工作单元过滤特性
+            </summary>
+        </member>
+        <member name="F:Revit.Service.UnitOfWork.UnitOfWorkFilterAttribute._unitOfWorkAttribute">
+            <summary>
+            工作单元特性
+            </summary>
+        </member>
+        <member name="M:Revit.Service.UnitOfWork.UnitOfWorkFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            在action方法运行之前调用
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Revit.Service.UnitOfWork.UnitOfWorkFilterAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            在action方法运行之后调用
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="T:Electric.API.Controllers.RolesController">
             <summary>
             角色管理

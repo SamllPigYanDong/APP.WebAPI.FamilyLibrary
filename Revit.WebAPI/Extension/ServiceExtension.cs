@@ -1,16 +1,16 @@
-﻿using Revit.Repository.Commons;
+﻿using Revit.Service.Commons;
 
 namespace Revit.WebAPI.Extension
 {
-    public static class RepositoryExtension
+    public static class ServiceExtension
     {
-        internal static void AddRevitRepository(this WebApplicationBuilder builder)
+        internal static void AddRevitServices(this WebApplicationBuilder builder)
         {
             var assemblies = AppDomain.CurrentDomain.GetReferanceAssemblies();
             foreach (var assembly in assemblies)
             {
                 List<Type> types = assembly.GetTypes()
-                    .Where(t => t.BaseType == typeof(BaseRepository))
+                    .Where(t => t.BaseType == typeof(BaseService))
                     .ToList();
                 types.ForEach(type =>
                 {

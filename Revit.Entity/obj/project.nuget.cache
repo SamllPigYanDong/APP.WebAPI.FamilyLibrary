@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Aen4kISop7NH6IgnjH85lkMDyIEQz3w/KEdV9c3/9I3dcO5ZlaA9wnKLoK2+rTxmuvPUuRIYgAyZYgJ3XH56cQ==",
+  "dgSpecHash": "2uCpZHH1Xf3G9dQhBdaclBiJUMpOk5tGL2aFCbE/W1nH5XxpcyIOobGvITI2Q9HjeAm1EN0X/Vn3SpIrsz01CQ==",
   "success": true,
   "projectFilePath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\Revit.Entity.csproj",
   "expectedPackageFiles": [
@@ -26,7 +26,7 @@
     "C:\\Users\\yandong\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
-    "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",

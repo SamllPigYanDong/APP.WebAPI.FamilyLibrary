@@ -1,8 +1,8 @@
 ﻿using Revit.Entity.Users;
 
-namespace Revit.Repository.Users
+namespace Revit.Service.Users
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         List<string> GetRoles(string userName);
         UserPageResponseDto Query(UserPageRequestDto userPageRequestDto);

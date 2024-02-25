@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Revit.EntityFrameworkCore;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
-using Revit.Repository.Commons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Revit.Service.Commons;
 
-namespace Revit.Repository.Roles
+namespace Revit.Service.Roles
 {
-    public class RoleRepository : BaseRepository, IRoleRepository
+    public class RoleService : BaseService, IRoleService
     {
-        public RoleRepository(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public RoleService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

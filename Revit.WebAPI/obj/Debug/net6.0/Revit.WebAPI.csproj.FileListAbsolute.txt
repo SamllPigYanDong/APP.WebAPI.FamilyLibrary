@@ -75,8 +75,6 @@ D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Swashbuc
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.WebAPI.xml
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\obj\Debug\net6.0\Revit.WebAPI.xml
-D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.Repository.dll
-D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.Repository.pdb
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\AutoMapper.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
@@ -84,3 +82,9 @@ D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Newtonso
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.EntityFrameworkCore.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.EntityFrameworkCore.pdb
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.Service.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.Service.pdb
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.Repository.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Revit.Repository.pdb
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Autofac.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\Autofac.Extensions.DependencyInjection.dll

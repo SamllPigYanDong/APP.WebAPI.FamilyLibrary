@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.DbMigrator", "Revit.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Entity", "Revit.Entity\Revit.Entity.csproj", "{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Repository", "Revit.Repository\Revit.Repository.csproj", "{276AD05E-FC2C-422B-874A-A857E5A31903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.EntityFrameworkCore", "Revit.EntityFrameworkCore\Revit.EntityFrameworkCore.csproj", "{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit.EntityFrameworkCore", "Revit.EntityFrameworkCore\Revit.EntityFrameworkCore.csproj", "{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Service", "Revit.Service\Revit.Service.csproj", "{B00B3341-A573-4B7F-8055-983322291D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit.Repository", "Revit.Repository\Revit.Repository.csproj", "{19878FF5-E4AB-48C8-B842-169808CA7004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +33,18 @@ Global
 		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{276AD05E-FC2C-422B-874A-A857E5A31903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{276AD05E-FC2C-422B-874A-A857E5A31903}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{276AD05E-FC2C-422B-874A-A857E5A31903}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{276AD05E-FC2C-422B-874A-A857E5A31903}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00B3341-A573-4B7F-8055-983322291D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00B3341-A573-4B7F-8055-983322291D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00B3341-A573-4B7F-8055-983322291D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00B3341-A573-4B7F-8055-983322291D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19878FF5-E4AB-48C8-B842-169808CA7004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19878FF5-E4AB-48C8-B842-169808CA7004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19878FF5-E4AB-48C8-B842-169808CA7004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19878FF5-E4AB-48C8-B842-169808CA7004}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

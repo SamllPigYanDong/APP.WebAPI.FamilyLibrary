@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Revit.Entity.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace Revit.Entity.Users
        /// 密码
        /// </summary>
         [StringLength(20)]
+        [JsonConverter(typeof(DesensitizationConvter), 2, 4)]
         public string? Password { get; set; }
 
         /// <summary>

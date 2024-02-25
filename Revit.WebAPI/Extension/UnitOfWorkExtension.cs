@@ -1,4 +1,5 @@
-﻿using Revit.Repository.UnitOfWork;
+﻿using Revit.Service.UnitOfWork;
+using Revit.WebAPI.UnitOfWork;
 
 namespace Revit.WebAPI.Extension
 {
@@ -6,7 +7,8 @@ namespace Revit.WebAPI.Extension
     {
         internal static void AddRevitUnitOfWork(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IUnitOfWork, Service.UnitOfWork.UnitOfWork>();
+            builder.Services.AddScoped<UnitOfWorkAttribute>();
         }
     }
 }

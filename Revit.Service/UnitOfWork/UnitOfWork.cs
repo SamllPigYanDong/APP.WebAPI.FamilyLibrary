@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using Revit.EntityFrameworkCore;
-using Revit.WebAPI.UnitOfWork;
 
-namespace Revit.Repository.UnitOfWork
+namespace Revit.Service.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

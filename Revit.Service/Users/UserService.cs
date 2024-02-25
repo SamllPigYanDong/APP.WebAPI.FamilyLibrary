@@ -2,14 +2,13 @@
 using Revit.EntityFrameworkCore;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
-using Revit.Repository.Commons;
-using Arch.EntityFrameworkCore.UnitOfWork;
+using Revit.Service.Commons;
 
-namespace Revit.Repository.Users
+namespace Revit.Service.Users
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserService : BaseService, IUserService
     {
-        public UserRepository(ApplicationDbContext dbContext, IMapper mapper,IUnitOfWork unitOfWork) : base(dbContext, mapper,unitOfWork)
+        public UserService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
@@ -23,7 +22,8 @@ namespace Revit.Repository.Users
         {
             var result = new UserPageResponseDto();
             //过滤
-            var query = _unitOfWork.GetRepository<R_User>().GetAll();
+            var query = _dbContext.Users.Where(x => 1 == 1);
+
             if (!string.IsNullOrEmpty(userPageRequestDto.Name))
             {
                 query = query.Where(x => x.UserName.Contains(userPageRequestDto.Name));

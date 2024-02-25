@@ -5,14 +5,14 @@ using Revit.Entity.Accounts;
 using Revit.Entity.Commons;
 using Revit.Entity.Permissions;
 using Revit.Entity.Roles;
-using Revit.Repository.Commons;
 using System.Security;
+using Revit.Service.Commons;
 
-namespace Revit.Repository.Permissions
+namespace Revit.Service.Permissions
 {
-    public class RolePermissionRepositiory : BaseRepository, IRolePermissionRepositiory
+    public class RolePermissionService : BaseService, IRolePermissionService
     {
-        public RolePermissionRepositiory(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public RolePermissionService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

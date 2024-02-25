@@ -2,6 +2,8 @@ D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revi
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.Repository.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.Repository.pdb
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.Entity.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.EntityFrameworkCore.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.EntityFrameworkCore.pdb
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.Entity.pdb
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\obj\Debug\net6.0\Revit.Repository.csproj.AssemblyReference.cache
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\obj\Debug\net6.0\Revit.Repository.GeneratedMSBuildEditorConfig.editorconfig
@@ -13,5 +15,3 @@ D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\obj\Debug\net6.0\Revi
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\obj\Debug\net6.0\refint\Revit.Repository.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\obj\Debug\net6.0\Revit.Repository.pdb
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\obj\Debug\net6.0\ref\Revit.Repository.dll
-D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.EntityFrameworkCore.dll
-D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.Repository\bin\Debug\net6.0\Revit.EntityFrameworkCore.pdb

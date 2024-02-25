@@ -1,4 +1,4 @@
-﻿namespace Revit.Repository.UnitOfWork
+﻿namespace Revit.Service.UnitOfWork
 {
     public interface IUnitOfWork
     {

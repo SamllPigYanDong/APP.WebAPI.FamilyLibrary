@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Jr/LGjY+KMbOgST6higScpqKcdomTqiyOm7WCUr7Q0iYmWivzkSgs34h2mxK0T205jjXeZA5oIaz7BP3AWo2MQ==",
+  "dgSpecHash": "8rAAMVE2LwnvfoxEOxQ2dwljyE2xapEGciWJWiqRA8QjyGLOrih5vBWbi7bimQjPVr2rbnN9m6Qfmd7Q94EdSg==",
   "success": true,
   "projectFilePath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.DbMigrator\\Revit.DbMigrator.csproj",
   "expectedPackageFiles": [
@@ -42,7 +42,7 @@
     "C:\\Users\\yandong\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
-    "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",

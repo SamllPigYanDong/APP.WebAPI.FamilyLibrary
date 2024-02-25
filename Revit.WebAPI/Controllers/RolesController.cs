@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Revit.Entity.Commons;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
-using Revit.Repository.Permissions;
-using Revit.Repository.Roles;
+using Revit.Service.Permissions;
+using Revit.Service.Roles;
 using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
 
@@ -20,14 +20,14 @@ namespace Electric.API.Controllers
     [R_Authorize]
     public class RolesController : ControllerBase
     {
-        private readonly IRoleRepository _roleRepositiory;
-        private readonly IRolePermissionRepositiory _rolePermissionRepositiory;
+        private readonly IRoleService _roleRepositiory;
+        private readonly IRolePermissionService _rolePermissionRepositiory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
         private readonly RoleManager<R_Role> _roleManager;
         private readonly IMapper _mapper;
 
-        public RolesController(IRoleRepository roleRepositiory, IRolePermissionRepositiory rolePermissionRepositiory, IHttpContextAccessor httpContextAccessor,
+        public RolesController(IRoleService roleRepositiory, IRolePermissionService rolePermissionRepositiory, IHttpContextAccessor httpContextAccessor,
             UserManager<R_User> userManager, IMapper mapper, RoleManager<R_Role> roleManager)
         {
             _roleRepositiory = roleRepositiory;
