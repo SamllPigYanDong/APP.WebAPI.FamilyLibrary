@@ -20,7 +20,7 @@ builder.Services.AddRateLimiter(config => config.AddFixedWindowLimiter("fixed", 
 
 }));
 
-builder.Logging.AddConsole().AddEventLog();
+//builder.Logging.AddConsole().AddEventLog();
 
 builder.AddRevitController();
 
