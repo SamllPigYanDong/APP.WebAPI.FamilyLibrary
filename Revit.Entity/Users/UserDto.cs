@@ -23,9 +23,9 @@ namespace Revit.Entity.Users
 
         public long CreatorId { get; set; }
 
-        public DateTime CreationTime { get; set; }
+        public DateTime CreationTime { get; set; } = DateTime.Now;
 
-        public DateTime LastModificationTime { get; set; }
+        public DateTime LastModificationTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 用户名

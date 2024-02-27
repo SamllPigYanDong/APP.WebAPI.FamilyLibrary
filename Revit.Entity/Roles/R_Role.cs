@@ -21,7 +21,7 @@ namespace Revit.Entity.Roles
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
         [Comment("最后编辑时间")]
-        public DateTime LastModificationTime { get; set; }
+        public DateTime LastModificationTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 状态，0：禁用，1：正常

@@ -14,7 +14,7 @@ namespace Revit.Entity.Roles
     {
         public long Id { get; set; }
 
-        public DateTime LastModificationTime { get; set; }
+        public DateTime LastModificationTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 角色名称

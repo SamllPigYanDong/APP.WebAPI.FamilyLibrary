@@ -2,10 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Revit.DbMigrator;
 using Revit.EntityFrameworkCore;
 
 #nullable disable
@@ -13,44 +11,40 @@ using Revit.EntityFrameworkCore;
 namespace Revit.DbMigrator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240126151053_initial")]
-    partial class initial
+    [Migration("20240227154257_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.20")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Revit.Entity.Entities.R_Permission", b =>
+            modelBuilder.Entity("Revit.Entity.Permissions.R_Permission", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
                     b.Property<string>("ApiMethod")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("varchar(10)")
                         .HasComment("API方法：GET、PUT、POST、DELETE");
 
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("varchar(100)")
                         .HasComment("权限编码");
 
                     b.Property<string>("Component")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
+                        .HasColumnType("varchar(200)")
                         .HasComment("Vue页面组件");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("创建时间");
 
                     b.Property<long>("CreatorId")
@@ -59,17 +53,17 @@ namespace Revit.DbMigrator.Migrations
 
                     b.Property<string>("Icon")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("varchar(100)")
                         .HasComment("图标");
 
                     b.Property<DateTime>("LastModificationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("最后编辑时间");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("varchar(20)")
                         .HasComment("权限名称");
 
                     b.Property<long>("ParentId")
@@ -82,7 +76,7 @@ namespace Revit.DbMigrator.Migrations
 
                     b.Property<string>("Remark")
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("varchar(500)")
                         .HasComment("备注");
 
                     b.Property<int>("Sort")
@@ -95,7 +89,7 @@ namespace Revit.DbMigrator.Migrations
 
                     b.Property<string>("Url")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
+                        .HasColumnType("varchar(200)")
                         .HasComment("Url地址");
 
                     b.HasKey("Id");
@@ -107,23 +101,21 @@ namespace Revit.DbMigrator.Migrations
 
                     b.HasIndex("Sort");
 
-                    b.ToTable("R_Permission");
+                    b.ToTable("R_Permission", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_Role", b =>
+            modelBuilder.Entity("Revit.Entity.Roles.R_Role", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("创建时间");
 
                     b.Property<long>("CreatorId")
@@ -131,20 +123,20 @@ namespace Revit.DbMigrator.Migrations
                         .HasComment("创建者Id");
 
                     b.Property<DateTime>("LastModificationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("最后编辑时间");
 
                     b.Property<string>("Name")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Remark")
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("varchar(500)")
                         .HasComment("备注");
 
                     b.Property<int>("Status")
@@ -155,25 +147,22 @@ namespace Revit.DbMigrator.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("R_Role", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_RoleClaim", b =>
+            modelBuilder.Entity("Revit.Entity.Roles.R_RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<long>("RoleId")
                         .HasColumnType("bigint");
@@ -185,16 +174,14 @@ namespace Revit.DbMigrator.Migrations
                     b.ToTable("R_RoleClaim", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_RolePermission", b =>
+            modelBuilder.Entity("Revit.Entity.Roles.R_RolePermission", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("创建时间");
 
                     b.Property<long>("CreatorId")
@@ -202,7 +189,7 @@ namespace Revit.DbMigrator.Migrations
                         .HasComment("创建者Id");
 
                     b.Property<DateTime>("LastModificationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("最后编辑时间");
 
                     b.Property<long>("PermissionId")
@@ -220,23 +207,21 @@ namespace Revit.DbMigrator.Migrations
                     b.ToTable("R_RolePermission");
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_User", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("创建时间");
 
                     b.Property<long>("CreatorId")
@@ -245,58 +230,58 @@ namespace Revit.DbMigrator.Migrations
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FullName")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("LastModificationTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasComment("最后编辑时间");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Remark")
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("varchar(500)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -305,25 +290,22 @@ namespace Revit.DbMigrator.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("R_User", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserClaim", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -335,16 +317,16 @@ namespace Revit.DbMigrator.Migrations
                     b.ToTable("R_UserClaim", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserLogin", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -356,7 +338,7 @@ namespace Revit.DbMigrator.Migrations
                     b.ToTable("R_UserLogin", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserRole", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserRole", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -371,85 +353,85 @@ namespace Revit.DbMigrator.Migrations
                     b.ToTable("R_UserRole", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserToken", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserToken", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("R_UserToken", (string)null);
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_RoleClaim", b =>
+            modelBuilder.Entity("Revit.Entity.Roles.R_RoleClaim", b =>
                 {
-                    b.HasOne("Revit.Entity.Entities.R_Role", null)
+                    b.HasOne("Revit.Entity.Roles.R_Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_RolePermission", b =>
+            modelBuilder.Entity("Revit.Entity.Roles.R_RolePermission", b =>
                 {
-                    b.HasOne("Revit.Entity.Entities.R_Permission", null)
+                    b.HasOne("Revit.Entity.Permissions.R_Permission", null)
                         .WithMany()
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Revit.Entity.Entities.R_Role", null)
+                    b.HasOne("Revit.Entity.Roles.R_Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserClaim", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserClaim", b =>
                 {
-                    b.HasOne("Revit.Entity.Entities.R_User", null)
+                    b.HasOne("Revit.Entity.Users.R_User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserLogin", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserLogin", b =>
                 {
-                    b.HasOne("Revit.Entity.Entities.R_User", null)
+                    b.HasOne("Revit.Entity.Users.R_User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserRole", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserRole", b =>
                 {
-                    b.HasOne("Revit.Entity.Entities.R_Role", null)
+                    b.HasOne("Revit.Entity.Roles.R_Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Revit.Entity.Entities.R_User", null)
+                    b.HasOne("Revit.Entity.Users.R_User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Revit.Entity.Entities.R_UserToken", b =>
+            modelBuilder.Entity("Revit.Entity.Users.R_UserToken", b =>
                 {
-                    b.HasOne("Revit.Entity.Entities.R_User", null)
+                    b.HasOne("Revit.Entity.Users.R_User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

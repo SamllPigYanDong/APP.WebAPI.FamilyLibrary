@@ -12,9 +12,10 @@ namespace Revit.EntityFrameworkCore
     public class ApplicationDbContext : IdentityDbContext<R_User, R_Role, long
         , R_UserClaim, R_UserRole, R_UserLogin, R_RoleClaim, R_UserToken>
     {
-        public DbSet<R_Permission> R_Permission { get; set; }
 
         public DbSet<R_RolePermission> R_RolePermission { get; set; }
+        public DbSet<R_Permission> R_Permission { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -41,8 +42,6 @@ namespace Revit.EntityFrameworkCore
             modelBuilder.Entity<R_RoleClaim>().ToTable("R_RoleClaim");
 
             modelBuilder.Entity<R_UserRole>().ToTable("R_UserRole");
-
-
         }
 
         private void SetProperties(ModelBuilder modelBuilder)

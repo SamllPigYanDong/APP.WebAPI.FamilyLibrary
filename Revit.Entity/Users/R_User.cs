@@ -13,7 +13,7 @@ namespace Revit.Entity.Users
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
         [Comment("最后编辑时间")]
-        public DateTime LastModificationTime { get; set; }
+        public DateTime LastModificationTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 全名：姓名

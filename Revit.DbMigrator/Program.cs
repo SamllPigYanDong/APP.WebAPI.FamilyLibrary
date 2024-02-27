@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Revit.DbMigrator;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
 using Revit.EntityFrameworkCore;
