@@ -15,8 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     switch (provider)
     {
         case "MsSql":
-            var msSqlConnection = builder.Configuration.GetConnectionString("MsSqlConnection") ?? throw new InvalidOperationException("MsSqlConnection在appsettings.json未发现");
-            options.UseSqlServer(msSqlConnection);
+            var msSqlConnection = builder.Configuration.GetConnectionString("MsSqlConnection") 
+            ?? throw new InvalidOperationException("MsSqlConnection在appsettings.json未发现");
             options.UseSqlServer(msSqlConnection, b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
             break;
         case "MySql":

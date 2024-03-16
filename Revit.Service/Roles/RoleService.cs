@@ -1,39 +1,56 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Revit.EntityFrameworkCore;
+
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Linq.Expressions;
+using Revit.Service.Commons;
+using Revit.Repository;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Revit.Service.Commons;
 
 namespace Revit.Service.Roles
 {
+    /// <summary>
+    /// 角色
+    /// </summary>
     public class RoleService : BaseService, IRoleService
     {
-        public RoleService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        private readonly IBaseRepository<R_Role> _roleRepository;
+        private readonly IBaseRepository<R_User> _userRepository;
+
+        private readonly IMapper _mapper;
+
+        public RoleService(IBaseRepository<R_Role> roleRepository
+            , IBaseRepository<R_User> userRepository
+            , IMapper mapper):base(mapper)
         {
+            _mapper = mapper;
+            _roleRepository = roleRepository;
+            _userRepository = userRepository;
         }
 
-        public RolePageResponseDto Query(RolePageRequestDto requestDto)
+        /// <summary>
+        /// 搜索角色
+        /// </summary>
+        /// <param name="rolePageRequestDto"></param>
+        /// <returns></returns>
+        public RolePageResponseDto Query(RolePageRequestDto rolePageRequestDto)
         {
             var result = new RolePageResponseDto();
-            var query = _dbContext.Roles.Where(x => 1 == 1);
-            if (!string.IsNullOrEmpty(requestDto.Name))
+            var query = _roleRepository.GetQueryable();
+            if (!string.IsNullOrEmpty(rolePageRequestDto.Name))
             {
-                query = query.Where(x => x.Name.Equals(requestDto.Name));
+                query = query.Where(x => x.Name.Equals(rolePageRequestDto.Name));
             }
-            requestDto.Page = requestDto.Page < 1 ? 1 : requestDto.Page;
-            //按页码取数据
+            rolePageRequestDto.Page = rolePageRequestDto.Page < 1 ? 1 : rolePageRequestDto.Page;
+
+            //获取总数、角色列表
             var count = query.Count();
-            var skipCount = (requestDto.Page - 1) * requestDto.PrePage;
-            var list = query.Skip(skipCount).Take(requestDto.PrePage).ToList();
-            result.Page = requestDto.Page;
-            result.PrePage = requestDto.PrePage;
-            result.Total = count;
+            var skip = (rolePageRequestDto.Page - 1) * rolePageRequestDto.PrePage;
+            var list = _roleRepository.GetPagedList(skip, rolePageRequestDto.PrePage, query);
+            result.PageIndex = rolePageRequestDto.Page;
+            result.PageSize = rolePageRequestDto.PrePage;
+            result.TotalCount = count;
 
             //转换实体
             var roleDtos = new List<RoleDto>();
@@ -42,26 +59,33 @@ namespace Revit.Service.Roles
                 var roleDto = _mapper.Map<RoleDto>(item);
 
                 //创建者
-                var creator = _dbContext.Users.FirstOrDefault(x => x.Id == roleDto.CreatorId);
+                var creator = _userRepository.Get(roleDto.CreatorId);
                 roleDto.Creator = _mapper.Map<UserDto>(creator);
                 roleDtos.Add(roleDto);
             }
             result.Roles = roleDtos;
 
+
             return result;
         }
 
+        /// <summary>
+        /// 获取所有角色列表
+        /// </summary>
+        /// <param name="rolePageRequestDto"></param>
+        /// <returns></returns>
         public List<RoleDto> GetAll()
         {
-            var repository = _dbContext.Roles.ToList();
+            var list = _roleRepository.GetAll();
 
+            //转换实体
             var roleDtos = new List<RoleDto>();
-            foreach (var item in repository)
+            foreach (var item in list)
             {
                 var roleDto = _mapper.Map<RoleDto>(item);
 
                 //创建者
-                var creator = _dbContext.Users.FirstOrDefault(x => x.Id == roleDto.CreatorId);
+                var creator = _userRepository.Get(roleDto.CreatorId);
                 roleDto.Creator = _mapper.Map<UserDto>(creator);
                 roleDtos.Add(roleDto);
             }

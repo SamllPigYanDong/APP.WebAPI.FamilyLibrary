@@ -15,6 +15,6 @@ namespace Revit.Entity.Users
         /// <summary>
         /// 用户昵称
         /// </summary>
-        public string? Name { get; set; } 
+        public string? UserName { get; set; } 
     }
 }

@@ -22,4 +22,9 @@
 	  <ProjectReference Include="..\Revit.Entity\Revit.Entity.csproj" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
+
 </Project>

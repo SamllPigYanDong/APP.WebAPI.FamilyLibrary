@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +15,19 @@ namespace Revit.Entity.Commons
         /// <summary>
         /// 每页记录数量
         /// </summary>
-        public int PrePage { get; set; }
+        public int PageSize { get; set; }
 
         /// <summary>
         /// 当前页码
         /// </summary>
-        public int Page { get; set; }
+        public int PageIndex { get; set; }
 
         /// <summary>
         /// 总数
         /// </summary>
-        public int Total { get; set; }
+        public int TotalCount { get; set; }
+
+        
+        public IList Items { get; set; }
     }
 }

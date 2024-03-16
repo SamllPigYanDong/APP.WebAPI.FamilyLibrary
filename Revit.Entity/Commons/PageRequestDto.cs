@@ -20,5 +20,8 @@ namespace Revit.Entity.Commons
         /// 当前页码
         /// </summary>
         public int Page { get; set; }
+
+
+        public string SearchMessage { get; set; }
     }
 }

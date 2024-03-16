@@ -21,23 +21,26 @@ builder.Services.AddRateLimiter(config => config.AddFixedWindowLimiter("fixed", 
 }));
 
 //builder.Logging.AddConsole().AddEventLog();
+builder.AddRevitJWT();
 
 builder.AddRevitController();
+
+builder.AddRevitSwaggerGen();
 
 builder.AddRevitDbContext();
 
 
-builder.AddRevitJWT();
 //Identity注入，添加数据库上下文
 builder.AddRevitServices();
 
-builder.AddRevitUnitOfWork();
 
 builder.AddRevitAutoMapper();
 //swagger
-builder.AddRevitSwaggerGen();
 
-var origins=builder.AddRevitCorsOrigins();
+builder.AddRevitUnitOfWork();
+
+
+var origins =builder.AddRevitCorsOrigins();
 
 
 var app = builder.Build();

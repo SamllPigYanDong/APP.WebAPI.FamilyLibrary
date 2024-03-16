@@ -4,10 +4,39 @@ namespace Revit.Service.Permissions
 {
     public interface IPermissionService
     {
-        R_Permission Add(R_Permission elePermission);
+        /// <summary>
+        /// 更新权限信息
+        /// </summary>
+        /// <param name="R_Permission"></param>
+        /// <returns></returns>
+        R_Permission Add(R_Permission R_Permission);
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
         bool Delete(long id);
+
+        // <summary>
+        /// 获取权限信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         R_Permission? Get(long id);
+
+        /// <summary>
+        /// 获取权限列表
+        /// </summary>
+        /// <returns></returns>
         List<PermissionDto> GetAll();
-        bool Update(R_Permission elePermission);
+
+        /// <summary>
+        /// 更新权限信息
+        /// </summary>
+        /// <param name="R_Permission"></param>
+        /// <returns></returns>
+        bool Update(R_Permission R_Permission);
     }
 }

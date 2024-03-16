@@ -54,11 +54,6 @@ namespace Revit.Service.UnitOfWork
             {
                 _dbContextTransaction.Rollback();
             }
-
-            if (_dbContextTransaction != null)
-            {
-                _dbContextTransaction.Dispose();
-            }
         }
     }
 }

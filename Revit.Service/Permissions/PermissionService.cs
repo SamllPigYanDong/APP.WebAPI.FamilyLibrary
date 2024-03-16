@@ -1,21 +1,23 @@
 ﻿using AutoMapper;
 using Revit.Entity.Permissions;
 using Revit.Entity.Users;
-using Revit.EntityFrameworkCore;
+using Revit.Repository;
 using Revit.Service.Commons;
 
 namespace Revit.Service.Permissions
 {
-    public class PermissionRepositiory : BaseService, IPermissionService
+    public class PermissionService : BaseService,IPermissionService
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IBaseRepository<R_Permission> _permissionsRepository;
+        private readonly IBaseRepository<R_User> _userRepository;
 
         private readonly IMapper _mapper;
 
-        public PermissionRepositiory(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public PermissionService(IBaseRepository<R_Permission> permissionsRepository, IBaseRepository<R_User> userRepository, IMapper mapper):base(mapper)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
+            _permissionsRepository = permissionsRepository;
+            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -25,14 +27,14 @@ namespace Revit.Service.Permissions
         public List<PermissionDto> GetAll()
         {
             var permissionDtos = new List<PermissionDto>();
-            var list = _dbContext.R_Permission.ToList();
+            var list = _permissionsRepository.GetAll();
 
             foreach (var item in list)
             {
                 var permissionDto = _mapper.Map<PermissionDto>(item);
 
                 //创建者
-                var creator = _dbContext.Users.FirstOrDefault(x => x.Id == permissionDto.CreatorId);
+                var creator = _userRepository.Get(permissionDto.CreatorId);
                 permissionDto.Creator = _mapper.Map<UserDto>(creator);
                 permissionDtos.Add(permissionDto);
             }
@@ -47,26 +49,25 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public R_Permission? Get(long id)
         {
-            var item = _dbContext.R_Permission.FirstOrDefault(x => x.Id == id);
+            var item = _permissionsRepository.Get(id);
             return item;
         }
 
         /// <summary>
         /// 更新权限信息
         /// </summary>
-        /// <param name="elePermission"></param>
+        /// <param name="R_Permission"></param>
         /// <returns></returns>
-        public bool Update(R_Permission elePermission)
+        public bool Update(R_Permission R_Permission)
         {
-            var count = _dbContext.R_Permission.Count(x => x.Code == elePermission.Code && x.Id != elePermission.Id);
+            var count = _permissionsRepository.Count(x => x.Code == R_Permission.Code && x.Id != R_Permission.Id);
             if (count > 0)
             {
                 return false;
             }
 
-            elePermission.LastModificationTime = DateTime.Now;
-            _dbContext.Update(elePermission);
-            _dbContext.SaveChanges();
+            R_Permission.LastModificationTime = DateTime.Now;
+            _permissionsRepository.Update(R_Permission);
 
             return true;
         }
@@ -74,20 +75,19 @@ namespace Revit.Service.Permissions
         /// <summary>
         /// 更新权限信息
         /// </summary>
-        /// <param name="elePermission"></param>
+        /// <param name="R_Permission"></param>
         /// <returns></returns>
-        public R_Permission Add(R_Permission elePermission)
+        public R_Permission Add(R_Permission R_Permission)
         {
-            var count = _dbContext.R_Permission.Count(x => x.Code == elePermission.Code);
+            var count = _permissionsRepository.Count(x => x.Code == R_Permission.Code);
             if (count > 0)
             {
                 return null;
             }
 
-            _dbContext.Add(elePermission);
-            _dbContext.SaveChanges();
+            _permissionsRepository.Add(R_Permission);
 
-            return elePermission;
+            return R_Permission;
         }
 
         /// <summary>
@@ -97,14 +97,13 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public bool Delete(long id)
         {
-            var entity = _dbContext.R_Permission.FirstOrDefault(x => x.Id == id);
+            var entity = _permissionsRepository.Get(id);
             if (entity == null)
             {
                 return false;
             }
 
-            _dbContext.Remove(entity);
-            _dbContext.SaveChanges();
+            _permissionsRepository.Delete(entity);
 
             return true;
         }

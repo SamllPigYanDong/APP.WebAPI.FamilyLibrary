@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Revit.Entity.Accounts;
-using Revit.Entity.Roles;
 using Revit.Service.Permissions;
 using Revit.Service.Users;
 using System.Text.RegularExpressions;
@@ -27,16 +26,16 @@ namespace Revit.WebAPI.Auth
 
             //获取账户角色
             var roleNames = userRepository.GetRoles(userName);
-            var elePermissions = new Dictionary<long, AccountPermissionsDto>();
+            var R_Permissions = new Dictionary<long, AccountPermissionsDto>();
             foreach (var roleName in roleNames)
             {
                 var rolePermissions = rolePermissionRepositiory.GetRolePermissions(roleName);
                 //合并角色重复的权限
                 foreach (var permission in rolePermissions)
                 {
-                    if (!elePermissions.ContainsKey(permission.Id))
+                    if (!R_Permissions.ContainsKey(permission.Id))
                     {
-                        elePermissions.Add(permission.Id, permission);
+                        R_Permissions.Add(permission.Id, permission);
                     }
                 }
             }
@@ -53,7 +52,7 @@ namespace Revit.WebAPI.Auth
             }
 
             //是否有权限
-            var hasPermission = elePermissions.Values.FirstOrDefault(x => context.HttpContext.Request.Method.ToLower().Equals(x.ApiMethod.ToLower())
+            var hasPermission = R_Permissions.Values.FirstOrDefault(x => context.HttpContext.Request.Method.ToLower().Equals(x.ApiMethod.ToLower())
             && Regex.Match(context.HttpContext.Request.Path.Value.ToLower(), x.Url.ToLower()).Success);
 
             //此API无访问权限

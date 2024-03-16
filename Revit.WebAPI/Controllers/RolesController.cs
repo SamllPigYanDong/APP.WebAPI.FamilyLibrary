@@ -105,18 +105,18 @@ namespace Electric.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RoleCreateDto roleCreateDto)
         {
-            var eleRole = _mapper.Map<R_Role>(roleCreateDto);
+            var R_Role = _mapper.Map<R_Role>(roleCreateDto);
 
             //获取登录的用户
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             var creatorUser = await _userManager.FindByNameAsync(userName);
 
             //添加角色
-            eleRole.CreatorId = creatorUser.Id;
-            var result = await _roleManager.CreateAsync(eleRole);
+            R_Role.CreatorId = creatorUser.Id;
+            var result = await _roleManager.CreateAsync(R_Role);
             if (result.Succeeded)
             {
-                return Created(string.Empty, eleRole);
+                return Created(string.Empty, R_Role);
             }
             else
             {
@@ -135,8 +135,8 @@ namespace Electric.API.Controllers
         public async Task<IActionResult> Put(long id, [FromBody] RoleUpdateDto roleUpdateDto)
         {
             //获取角色
-            var eleRole = await _roleManager.FindByIdAsync(id.ToString());
-            if (eleRole == null)
+            var R_Role = await _roleManager.FindByIdAsync(id.ToString());
+            if (R_Role == null)
             {
                 var responseResult = new ResponseResultDto();
                 responseResult.SetNotFound();
@@ -144,9 +144,9 @@ namespace Electric.API.Controllers
             }
 
             //更新字段
-            _mapper.Map(roleUpdateDto, eleRole);
-            eleRole.LastModificationTime = DateTime.Now;
-            var result = await _roleManager.UpdateAsync(eleRole);
+            _mapper.Map(roleUpdateDto, R_Role);
+            R_Role.LastModificationTime = DateTime.Now;
+            var result = await _roleManager.UpdateAsync(R_Role);
 
             if (result.Succeeded)
             {
@@ -169,21 +169,21 @@ namespace Electric.API.Controllers
         {
             var responseResult = new ResponseResultDto();
 
-            var eleRole = await _roleManager.FindByIdAsync(id.ToString());
+            var R_Role = await _roleManager.FindByIdAsync(id.ToString());
             //初始化数据，不可删除
             if (id == 1)
             {
                 responseResult.SetError("初始的角色，不可删除");
                 return BadRequest(responseResult);
             }
-            else if (eleRole == null)
+            else if (R_Role == null)
             {
                 responseResult.SetNotFound();
                 return BadRequest(responseResult);
             }
 
             //删除角色
-            await _roleManager.DeleteAsync(eleRole);
+            await _roleManager.DeleteAsync(R_Role);
             return NoContent();
         }
     }

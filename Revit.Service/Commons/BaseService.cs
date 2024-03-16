@@ -5,12 +5,10 @@ namespace Revit.Service.Commons
 {
     public class BaseService
     {
-        protected readonly ApplicationDbContext _dbContext;
         protected readonly IMapper _mapper;
 
-        public BaseService(ApplicationDbContext dbContext, IMapper mapper)
+        public BaseService( IMapper mapper)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
         }
 

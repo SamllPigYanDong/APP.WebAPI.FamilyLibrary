@@ -1,21 +1,34 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Revit.EntityFrameworkCore;
-using Revit.Entity.Accounts;
-using Revit.Entity.Commons;
+using Revit.Repository;
+using Revit.Service.Commons;
 using Revit.Entity.Permissions;
 using Revit.Entity.Roles;
-using System.Security;
-using Revit.Service.Commons;
+using Revit.Entity.Accounts;
+using Revit.Entity.Commons;
+
 
 namespace Revit.Service.Permissions
 {
+    /// <summary>
+    /// 角色权限关系
+    /// </summary>
     public class RolePermissionService : BaseService, IRolePermissionService
     {
-        public RolePermissionService(ApplicationDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
-        {
-        }
+        private readonly IBaseRepository<R_Permission> _permissionsRepository;
+        private readonly IBaseRepository<R_RolePermission> _rolePermissionRepository;
+        private readonly IBaseRepository<R_Role> _roleRepository;
 
+        private readonly IMapper _mapper;
+
+        public RolePermissionService(IBaseRepository<R_Permission> permissionsRepository
+            , IBaseRepository<R_RolePermission> rolePermissionRepository
+            , IBaseRepository<R_Role> roleRepository, IMapper mapper) :base(mapper)
+        {
+            _mapper = mapper;
+            _permissionsRepository = permissionsRepository;
+            _rolePermissionRepository = rolePermissionRepository;
+            _roleRepository = roleRepository;
+        }
 
         /// <summary>
         /// 获取角色权限列表
@@ -25,11 +38,11 @@ namespace Revit.Service.Permissions
         public List<AccountPermissionsDto> GetRolePermissions(string roleName)
         {
             //根据角色获取权限列表
-            var permissions = (from permission in _dbContext.R_Permission
-                               join rolePermisson in _dbContext.R_RolePermission on permission.Id equals rolePermisson.PermissionId
-                               join role in _dbContext.Roles on rolePermisson.RoleId equals role.Id
-                               where role.NormalizedName == roleName
-                               select permission
+            var permissions = (from p in _permissionsRepository.GetQueryable()
+                               join rp in _rolePermissionRepository.GetQueryable() on p.Id equals rp.PermissionId
+                               join r in _roleRepository.GetQueryable() on rp.RoleId equals r.Id
+                               where r.NormalizedName == roleName && p.Status == PermissionStatus.Normal
+                               select p
                      ).ToList();
 
             //对象映射转化
@@ -46,20 +59,18 @@ namespace Revit.Service.Permissions
         public List<PermissionDto> GetRolePermissions(long roleId)
         {
             var permissions = new List<PermissionDto>();
-            var list = _dbContext.R_RolePermission.Where(x => x.RoleId == roleId).ToList();
+            var list = _rolePermissionRepository.GetList(x => x.RoleId == roleId);
             var mapper = MappingProfile.CreateMapper();
             foreach (var item in list)
             {
-                var elePermission = _dbContext.R_Permission.FirstOrDefault(x => x.Id == item.PermissionId);
+                var R_Permission = _permissionsRepository.Get(item.PermissionId);
 
-                var permissionDto = mapper.Map<PermissionDto>(elePermission);
+                var permissionDto = mapper.Map<PermissionDto>(R_Permission);
                 permissions.Add(permissionDto);
             }
 
             return permissions;
         }
-
-
 
         /// <summary>
         /// 保存角色的权限列表
@@ -70,21 +81,19 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public bool SavePermissions(long roleId, List<long> permissionIds, long creatorId)
         {
-            var result = _dbContext.R_RolePermission.Where(x => x.RoleId == roleId);
-            _dbContext.R_RolePermission.RemoveRange(result);
+            _rolePermissionRepository.Delete(x => x.RoleId == roleId);
             var list = new List<R_RolePermission>();
             foreach (var item in permissionIds)
             {
-                var eleRolePermission = new R_RolePermission();
-                eleRolePermission.RoleId = roleId;
-                eleRolePermission.PermissionId = item;
-                eleRolePermission.CreationTime = DateTime.Now;
-                eleRolePermission.CreatorId = creatorId;
-                list.Add(eleRolePermission);
+                var R_RolePermission = new R_RolePermission();
+                R_RolePermission.RoleId = roleId;
+                R_RolePermission.PermissionId = item;
+                R_RolePermission.CreationTime = DateTime.Now;
+                R_RolePermission.CreatorId = creatorId;
+                list.Add(R_RolePermission);
             }
-            _dbContext.AddRange(list);
-            return _dbContext.SaveChanges() > 0;
-        }
 
+            return _rolePermissionRepository.AddRange(list) > 0;
+        }
     }
 }

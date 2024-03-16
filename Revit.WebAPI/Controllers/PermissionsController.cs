@@ -44,13 +44,13 @@ namespace Revit.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] PermissionCreateDto permissionCreateDto)
         {
-            var elePermission = _mapper.Map<R_Permission>(permissionCreateDto);
+            var R_Permission = _mapper.Map<R_Permission>(permissionCreateDto);
             //添加权限
-            elePermission = _permissionRepositiory.Add(elePermission);
+            R_Permission = _permissionRepositiory.Add(R_Permission);
 
-            if (elePermission != null)
+            if (R_Permission != null)
             {
-                return Created(string.Empty, elePermission.Id);
+                return Created(string.Empty, R_Permission.Id);
             }
             else
             {
@@ -69,8 +69,8 @@ namespace Revit.WebAPI.Controllers
         public IActionResult Put(long id, [FromBody] PermissionUpdateDto permissionUpdateDto)
         {
             //获取权限
-            var elePermission = _permissionRepositiory.Get(id);
-            if (elePermission == null)
+            var R_Permission = _permissionRepositiory.Get(id);
+            if (R_Permission == null)
             {
                 var responseResult = new ResponseResultDto();
                 responseResult.SetNotFound();
@@ -78,8 +78,8 @@ namespace Revit.WebAPI.Controllers
             }
 
             //更新字段
-            _mapper.Map(permissionUpdateDto, elePermission);
-            var success = _permissionRepositiory.Update(elePermission);
+            _mapper.Map(permissionUpdateDto, R_Permission);
+            var success = _permissionRepositiory.Update(R_Permission);
 
             if (success)
             {

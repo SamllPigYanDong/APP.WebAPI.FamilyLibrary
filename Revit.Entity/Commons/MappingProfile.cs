@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Revit.Entity.Accounts;
 using Revit.Entity.Permissions;
+using Revit.Entity.Project;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
 using System;
@@ -15,7 +16,7 @@ namespace Revit.Entity.Commons
     {
         public MappingProfile()
         {
-               CreateMap<R_Permission, AccountPermissionsDto>();
+            CreateMap<R_Permission, AccountPermissionsDto>();
             CreateMap<R_Permission, PermissionDto>();
             CreateMap<PermissionCreateDto, R_Permission>();
             CreateMap<PermissionUpdateDto, R_Permission>();
@@ -27,6 +28,8 @@ namespace Revit.Entity.Commons
             CreateMap<R_Role, RoleDto>();
             CreateMap<RoleCreateDto, R_Role>();
             CreateMap<RoleUpdateDto, R_Role>();
+
+            CreateMap<R_Project, ProjectResponseDto>();
         }
 
         /// <summary>

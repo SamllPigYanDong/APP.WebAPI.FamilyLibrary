@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Revit.Entity.Permissions;
+using Revit.Entity.Project;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
 using System.Reflection.Emit;
@@ -15,6 +16,8 @@ namespace Revit.EntityFrameworkCore
 
         public DbSet<R_RolePermission> R_RolePermission { get; set; }
         public DbSet<R_Permission> R_Permission { get; set; }
+        public DbSet<R_Project> R_Project { get; set; }
+        public DbSet<R_ProjectUser> R_ProjectUser { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -42,10 +45,19 @@ namespace Revit.EntityFrameworkCore
             modelBuilder.Entity<R_RoleClaim>().ToTable("R_RoleClaim");
 
             modelBuilder.Entity<R_UserRole>().ToTable("R_UserRole");
+
+            modelBuilder.Entity<R_Project>().ToTable("R_Project");
+
+            modelBuilder.Entity<R_ProjectUser>().ToTable("R_ProjectUser");
         }
 
         private void SetProperties(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<R_Project>(entity =>
+            {
+                entity.HasMany<R_ProjectUser>().WithOne().HasForeignKey(x => x.ProjectId).OnDelete(DeleteBehavior.Cascade);
+            });
+
             //设定字段长度
             modelBuilder.Entity<R_Role>(entity =>
             {
@@ -56,6 +68,9 @@ namespace Revit.EntityFrameworkCore
             {
                 entity.Property(r => r.UserName).HasMaxLength(100);
                 entity.Property(r => r.NormalizedUserName).HasMaxLength(100);
+
+                entity.HasMany<R_ProjectUser>().WithOne().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+
             });
             //1. 指定外键关系
             modelBuilder.Entity<R_Role>(entity =>
@@ -73,6 +88,55 @@ namespace Revit.EntityFrameworkCore
         private void InitialData(ModelBuilder modelBuilder)
         {
             var adminRoleId = 1;
+
+            modelBuilder.Entity<R_ProjectUser>().HasData(
+               new R_ProjectUser()
+               {
+                   Id = 1,
+                   ProjectId = 1,
+                   UserId = 1
+               });
+            modelBuilder.Entity<R_Project>().HasData(
+                new R_Project()
+                {
+                    ProjectName = "测试1",
+                    Id = 1,
+                    CreatorId = 1,
+                    CreationTime = DateTime.Now
+                }, new R_Project()
+                {
+                    ProjectName = "测试2",
+                    Id = 2,
+                    CreatorId = 1,
+                    CreationTime = DateTime.Now
+                }, new R_Project()
+                {
+                    ProjectName = "测试3",
+                    Id = 3,
+                    CreatorId = 1,
+                    CreationTime = DateTime.Now
+                }, new R_Project()
+                {
+                    ProjectName = "测试4",
+                    Id = 4,
+                    CreatorId = 1,
+                    CreationTime = DateTime.Now
+                }, new R_Project()
+                {
+                    ProjectName = "测试5",
+                    Id = 5,
+                    CreatorId = 1,
+                    CreationTime = DateTime.Now
+                }, new R_Project()
+                {
+                    ProjectName = "测试6",
+                    Id = 6,
+                    CreatorId = 1,
+                    CreationTime = DateTime.Now
+                });
+
+
+
             // 2. 添加角色
             modelBuilder.Entity<R_Role>().HasData(
                 new R_Role
