@@ -22,6 +22,11 @@ namespace Revit.Entity.Commons
             CreateMap<PermissionUpdateDto, R_Permission>();
 
             CreateMap<R_User, UserDto>();
+            CreateMap<R_User, AccountDto>()
+                .ForMember(x => x.UserName, opt=>opt.MapFrom(x=>x.FullName))
+                .ForMember(x => x.Account, opt=>opt.MapFrom(x=>x.UserName))
+                .ForMember(x => x.UserId, opt=>opt.MapFrom(x=>x.Id))
+                .ForMember(x => x.UserPhoneNumber, opt => opt.MapFrom(x => x.PhoneNumber));
             CreateMap<UserUpdateDto, R_User>();
             CreateMap<UserCreateDto, R_User>();
 

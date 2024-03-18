@@ -11,16 +11,17 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
     builder.RegisterModule(new AutofacModuleRegister());
 });
 
-builder.Services.AddRateLimiter(config => config.AddFixedWindowLimiter("fixed", option =>
-{
-    option.PermitLimit = 100;
-    option.Window = TimeSpan.FromSeconds(10);
-    option.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
-    option.QueueLimit = 10;
+//builder.Services.AddRateLimiter(config => config.AddFixedWindowLimiter("fixed", option =>
+//{
+//    option.PermitLimit = 100;
+//    option.Window = TimeSpan.FromSeconds(10);
+//    option.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+//    option.QueueLimit = 10;
 
-}));
+//}));
 
 //builder.Logging.AddConsole().AddEventLog();
+
 builder.AddRevitJWT();
 
 builder.AddRevitController();
@@ -39,9 +40,7 @@ builder.AddRevitAutoMapper();
 
 builder.AddRevitUnitOfWork();
 
-
-var origins =builder.AddRevitCorsOrigins();
-
+var origins = builder.AddRevitCorsOrigins();
 
 var app = builder.Build();
 

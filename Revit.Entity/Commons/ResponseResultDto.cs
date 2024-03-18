@@ -25,7 +25,7 @@ namespace Revit.Entity.Commons
         /// 响应消息内容
         /// </summary>
         public string Message { get; set; }
-        public object Result { get; set; }
+        public object Content { get; set; }
 
         /// <summary>
         /// 设置响应状态为成功

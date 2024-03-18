@@ -36,7 +36,9 @@ namespace Revit.Service.Projects
             Expression<Func<R_Project, bool>> predicate = x =>
             string.IsNullOrWhiteSpace(projectRequestDto.SearchMessage)
                 || x.ProjectName.Contains(projectRequestDto.SearchMessage);
-            var items = projectRepository.GetList(predicate);
+            var items = projectRepository.GetList(predicate)
+                .Skip((projectRequestDto.PageIndex - 1)* projectRequestDto.PageSize)
+                .Take(projectRequestDto.PageSize);
             var results = mapper.Map<List<ProjectResponseDto>>(items);
             return results;
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Revit.Entity.Commons;
 using Revit.Entity.Project;
 using Revit.Service.Projects;
@@ -8,24 +9,24 @@ namespace Revit.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [R_Authorize]
-    public class ProjectController : ControllerBase
+    [AllowAnonymous]
+    public class ProjectsController : ControllerBase
     {
         private readonly IProjectService projectService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectsController(IProjectService projectService)
         {
             this.projectService = projectService;
         }
 
 
         [HttpGet]
-        public IActionResult Get([FromBody]ProjectRequestDto pageRequest)
+        public IActionResult Get([FromQuery]ProjectRequestDto pageRequest)
         {
             var result = projectService.GetProjects(pageRequest);
             if (result != null && result.Any())
             {
-                return Ok(new ResponseResultDto() { Result = result, Code = ResponseCode.Success });
+                return Ok(new ResponseResultDto() { Content = result, Code = ResponseCode.Success });
             }
             else
             {
@@ -40,7 +41,7 @@ namespace Revit.WebAPI.Controllers
             var result = projectService.GetProjectUsers(projectId);
             if (result != null && result.Any())
             {
-                return Ok(new ResponseResultDto() { Result = result, Code = ResponseCode.Success });
+                return Ok(new ResponseResultDto() { Content = result, Code = ResponseCode.Success });
             }
             else
             {

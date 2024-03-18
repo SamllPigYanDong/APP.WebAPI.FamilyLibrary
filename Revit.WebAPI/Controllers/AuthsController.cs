@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -19,12 +21,14 @@ namespace Revit.WebAPI.Controllers
     public class AuthsController : ControllerBase
     {
         private readonly SignInManager<R_User> _signInManager;
+        private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IConfiguration _configuration;
 
-        public AuthsController(SignInManager<R_User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        public AuthsController(SignInManager<R_User> signInManager, IMapper mapper, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             this._signInManager = signInManager;
+            this._mapper = mapper;
             this._httpContextAccessor = httpContextAccessor;
             this._configuration = configuration;
         }
@@ -51,8 +55,7 @@ namespace Revit.WebAPI.Controllers
                     );
 
                 var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
-                Console.WriteLine(token);
-                return Ok(token);
+                return Ok(new ResponseResultDto() {  Code=ResponseCode.Success,Content=token, Message="登录成功;"});
             }
             var responseResult = new ResponseResultDto();
             responseResult.SetError("账号不存在或密码错误");

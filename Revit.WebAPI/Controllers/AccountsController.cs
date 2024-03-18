@@ -9,6 +9,7 @@ using Revit.Service.UnitOfWork;
 using Revit.Service.Permissions;
 using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
+using AutoMapper;
 
 namespace Revit.WebAPI.Controllers
 {
@@ -21,17 +22,24 @@ namespace Revit.WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
         private readonly ILogger<AccountsController> _logger;
+        private readonly IMapper _mapper;
         private readonly ILoggerFactory loggerFactory;
 
-        public AccountsController(IRolePermissionService rolePermissionRepositiory,IHttpContextAccessor httpContextAccessor,UserManager<R_User> userManager,ILogger<AccountsController> logger,ILoggerFactory loggerFactory)
+        public AccountsController(IRolePermissionService rolePermissionRepositiory
+            ,IHttpContextAccessor httpContextAccessor
+            ,UserManager<R_User> userManager
+            //,ILogger<AccountsController> logger
+            //,ILoggerFactory loggerFactory
+            ,IMapper mapper)
         {
             this._rolePermissionRepositiory = rolePermissionRepositiory;
             this._httpContextAccessor = httpContextAccessor;
             this._userManager = userManager;
-            this._logger = logger;
-            var logger1 = loggerFactory.CreateLogger("MyLogLevel");
-            logger1.LogInformation("123");
-            this._logger.LogInformation("成功开启日志");
+            //this._logger = logger;
+            this._mapper = mapper;
+            //var logger1 = loggerFactory.CreateLogger("MyLogLevel");
+            //logger1.LogInformation("123");
+            //this._logger.LogInformation("成功开启日志");
         }
 
         /// <summary>
@@ -46,14 +54,8 @@ namespace Revit.WebAPI.Controllers
             var user=await _userManager.FindByNameAsync(userName);
             var roles=await _userManager.GetRolesAsync(user);
 
-            //返回结果
-            var accountDto = new AccountDto()
-            {
-                Roles = roles.ToArray(),
-                Name = userName,
-                Avatar = "",
-                Introduction = string.IsNullOrEmpty(user.FullName) ? userName : user.FullName
-            };
+            var accountDto=  this._mapper.Map<R_User, AccountDto>(user);
+            accountDto.Roles = roles.ToArray();
 
             return Ok(accountDto);
         }

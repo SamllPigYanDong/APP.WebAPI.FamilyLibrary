@@ -17,11 +17,6 @@ namespace Revit.Entity.Accounts
         public string[] Roles { get; set; }
 
         /// <summary>
-        /// 用户名
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// 头像
         /// </summary>
         public string Avatar { get; set; }
@@ -30,5 +25,15 @@ namespace Revit.Entity.Accounts
         /// 介绍
         /// </summary>
         public string Introduction { get; set; }
+
+
+        public long UserId { get; set; }
+
+        public string Account { get; set; }
+
+        public string UserName { get; set; }
+
+        public string UserPhoneNumber { get; set; }
+
     }
 }
