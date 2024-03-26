@@ -1,13 +1,16 @@
-﻿using Revit.Entity.Commons;
-using Revit.Entity.Project;
+﻿using Revit.Entity.Project;
 using Revit.Entity.Users;
-using System.Linq.Expressions;
 
 namespace Revit.Service.Projects
 {
     public interface IProjectService
     {
-        IEnumerable<ProjectResponseDto> GetProjects(ProjectRequestDto pridicate);
-        IEnumerable<UserDto> GetProjectUsers(long request);
+        Task<ProjectResponseDto> CreateProject(ProjectCreateDto createDto);
+        int DeleteProject(long projectId);
+        List<ProjectFolderDto> GetProjectPathFolders(ProjectGetFoldersDto projectGetFileDto);
+        IEnumerable<ProjectResponseDto> GetProjects(ProjectRequestDto projectRequestDto);
+        IEnumerable<UserDto> GetProjectUsers(long projectId);
+
+        ProjectFolderDto CreateProjectFolder(ProjectCreateFolderDto createFolderDto);
     }
 }

@@ -24,7 +24,7 @@ namespace Revit.WebAPI.Extension
                 option.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}(注意两者之间有一个空格)",
-                    Name = AppSettings.Authentication,//jwt默认的参数名称,
+                    Name = AppSettings.Autherization,//jwt默认的参数名称,
                     In = ParameterLocation.Header,//jwt默认存放Autorization信息的位置（header中）
                     Type = SecuritySchemeType.ApiKey
                 });

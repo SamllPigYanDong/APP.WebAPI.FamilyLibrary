@@ -10,6 +10,7 @@ using Revit.Service.Permissions;
 using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
 using AutoMapper;
+using Revit.Service.Users;
 
 namespace Revit.WebAPI.Controllers
 {
@@ -21,13 +22,14 @@ namespace Revit.WebAPI.Controllers
         private readonly IRolePermissionService _rolePermissionRepositiory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
+        private readonly IUserService userService;
         private readonly ILogger<AccountsController> _logger;
         private readonly IMapper _mapper;
         private readonly ILoggerFactory loggerFactory;
 
         public AccountsController(IRolePermissionService rolePermissionRepositiory
             ,IHttpContextAccessor httpContextAccessor
-            ,UserManager<R_User> userManager
+            ,UserManager<R_User> userManager,IUserService userService
             //,ILogger<AccountsController> logger
             //,ILoggerFactory loggerFactory
             ,IMapper mapper)
@@ -35,8 +37,11 @@ namespace Revit.WebAPI.Controllers
             this._rolePermissionRepositiory = rolePermissionRepositiory;
             this._httpContextAccessor = httpContextAccessor;
             this._userManager = userManager;
-            //this._logger = logger;
+            this.userService = userService;
             this._mapper = mapper;
+
+
+            //this._logger = logger;
             //var logger1 = loggerFactory.CreateLogger("MyLogLevel");
             //logger1.LogInformation("123");
             //this._logger.LogInformation("成功开启日志");
@@ -51,13 +56,14 @@ namespace Revit.WebAPI.Controllers
         public async Task<IActionResult> Get()
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+
             var user=await _userManager.FindByNameAsync(userName);
             var roles=await _userManager.GetRolesAsync(user);
 
             var accountDto=  this._mapper.Map<R_User, AccountDto>(user);
             accountDto.Roles = roles.ToArray();
 
-            return Ok(accountDto);
+            return Ok(new ResponseResultDto(accountDto));
         }
 
 

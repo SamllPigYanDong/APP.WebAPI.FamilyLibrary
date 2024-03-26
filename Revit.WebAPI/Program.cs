@@ -22,7 +22,6 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
 
 //builder.Logging.AddConsole().AddEventLog();
 
-builder.AddRevitJWT();
 
 builder.AddRevitController();
 
@@ -39,6 +38,11 @@ builder.AddRevitAutoMapper();
 //swagger
 
 builder.AddRevitUnitOfWork();
+
+builder.ConfigFile();
+
+builder.AddRevitJWT();
+
 
 var origins = builder.AddRevitCorsOrigins();
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1SmEF7eneUWK2LTii/0JJ2V8t1HGiHF10OPhrT0EqTIylw/M4MzTHCoOAAW/xjQiml8r5WaxqBbP/tRlBPqPuA==",
+  "dgSpecHash": "tPGbmPQ4XnI5qdcasCcW/c6i6tOTNVgEKJM/iYsQHz1ji+P7AfAlDVe9M8aCSPWq9NlE2IilIIbN/2GTthPq9A==",
   "success": true,
   "projectFilePath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Repository\\Revit.Repository.csproj",
   "expectedPackageFiles": [
@@ -30,10 +30,7 @@
     "C:\\Users\\yandong\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\yandong\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
-    "C:\\Users\\yandong\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "C:\\Users\\yandong\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.17\\microsoft.windowsdesktop.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\yandong\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.17\\microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\yandong\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.17\\microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512"
+    "C:\\Users\\yandong\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

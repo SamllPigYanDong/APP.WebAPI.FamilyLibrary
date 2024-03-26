@@ -28,7 +28,7 @@
         /// <summary>
         /// Authentication
         /// </summary>
-        public const string Authentication = "Authentication";
+        public const string Autherization = "Autherization";
 
         /// <summary>
         /// JwtBearer
@@ -49,5 +49,8 @@
         /// SecurityKey
         /// </summary>
         public const string SecurityKey = "SecurityKey";
+
+
+        
     }
 }

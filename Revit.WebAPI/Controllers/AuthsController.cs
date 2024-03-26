@@ -43,7 +43,7 @@ namespace Revit.WebAPI.Controllers
                 var claim = new[] {
                 new Claim(ClaimTypes.Name,loginDto.UserName) };
 
-                var jwtBearer = _configuration.GetSection(AppSettings.Authentication).GetSection(AppSettings.JwtBearer);
+                var jwtBearer = _configuration.GetSection(AppSettings.Autherization).GetSection(AppSettings.JwtBearer);
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtBearer.GetValue<string>(AppSettings.SecurityKey)));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                 var securityToken = new JwtSecurityToken(
@@ -55,11 +55,11 @@ namespace Revit.WebAPI.Controllers
                     );
 
                 var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
-                return Ok(new ResponseResultDto() {  Code=ResponseCode.Success,Content=token, Message="登录成功;"});
+
+                var value = this.Request.HttpContext.User.Identity;
+                return Ok(new ResponseResultDto(token) );
             }
-            var responseResult = new ResponseResultDto();
-            responseResult.SetError("账号不存在或密码错误");
-            return BadRequest(responseResult);
+            return BadRequest(new ResponseResultDto().SetError("账号不存在或密码错误"));
         }
     }
 }

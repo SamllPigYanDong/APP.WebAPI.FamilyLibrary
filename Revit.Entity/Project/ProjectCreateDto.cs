@@ -2,28 +2,29 @@
 using Revit.Entity.Commons;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Revit.Entity.Project
 {
-    public class R_Project : R_Entity
+    public class ProjectCreateDto
     {
-        [Comment("项目名称")]
+
+        public long CreatorId { get; set; }
+
         public string ProjectName { get; set; } = "";
 
-        [Comment("项目地址")]
         public string ProjectAddress { get; set; } = "";
 
-
-        [Comment("项目介绍")]
+        /// <summary>
+        /// 项目介绍
+        /// </summary>
         public string Introduction { get; set; } = "";
 
-        [Comment("图标路径")]
-        public string IconPath { get; set; } = "";
-
-
-
+        public IFormFile Icon { get; set; }
     }
 }

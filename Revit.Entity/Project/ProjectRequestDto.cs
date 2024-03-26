@@ -14,10 +14,5 @@ namespace Revit.Entity.Project
         //删除
         public long UserId { get; set; }
 
-        public AccountDto UserDto { get; set; }
-
-        public int ProjectUserCount { get; set; }
-
-        public double DocumentsSize { get; set; }
     }
 }

@@ -49,10 +49,25 @@ namespace Revit.EntityFrameworkCore
             modelBuilder.Entity<R_Project>().ToTable("R_Project");
 
             modelBuilder.Entity<R_ProjectUser>().ToTable("R_ProjectUser");
+            modelBuilder.Entity<R_ProjectFolder>().ToTable("R_ProjectFolder");
         }
 
         private void SetProperties(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<R_ProjectFolder>(entity =>
+            {
+                entity.Property(x => x.RelativePath).IsRequired();
+                entity.Property(x => x.ProjectId).IsRequired();
+                entity.Property(x => x.FileExtension).IsRequired();
+                entity.Property(x => x.Name).IsRequired();
+            });
+
+            modelBuilder.Entity<R_Project>(entity =>
+            {
+                entity.HasMany<R_ProjectUser>().WithOne().HasForeignKey(x => x.ProjectId).OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<R_Project>(entity =>
             {
                 entity.HasMany<R_ProjectUser>().WithOne().HasForeignKey(x => x.ProjectId).OnDelete(DeleteBehavior.Cascade);

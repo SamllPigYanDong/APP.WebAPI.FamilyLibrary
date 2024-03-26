@@ -14,7 +14,12 @@ namespace Revit.Entity.Commons
             Message = "操作成功";
         }
 
-        
+        public ResponseResultDto(object content)
+        {
+            Code = ResponseCode.Success;
+            Message = "操作成功";
+            Content = content;
+        }
 
         /// <summary>
         /// 响应代码
