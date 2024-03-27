@@ -9,27 +9,23 @@ using Revit.WebAPI.UnitOfWork;
 namespace Revit.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/Project/{ProjectId}/Folder")]
+    [Route("api/Project/{projectId}/Folder")]
     [AllowAnonymous]
     [UnitOfWork(IsTransactional = false)]
     public class ProjectsFolderController : ControllerBase
     {
-        private readonly IProjectService projectService;
+        private readonly IProjectFolderService projectFolderService;
 
-        /// <summary>
-        /// 项目控制类
-        /// </summary>
-        /// <param name="projectService"></param>
-        public ProjectsFolderController(IProjectService projectService)
+        public ProjectsFolderController(IProjectFolderService projectFolderService)
         {
-            this.projectService = projectService;
+            this.projectFolderService = projectFolderService;
         }
 
 
-        [HttpGet()]
-        public async Task<IActionResult> GetProjectFolders([FromQuery] ProjectGetFoldersDto projectGetFoldersDto)
+        [HttpGet]
+        public async Task<IActionResult> GetProjectFolders(long projectId, [FromQuery] ProjectGetFoldersDto projectGetFoldersDto)
         {
-            var result = projectService.GetProjectPathFolders(projectGetFoldersDto);
+            var result = projectFolderService.GetProjectPathFolders(projectId,projectGetFoldersDto);
             if (result != null && result.Count > 0)
             {
                 return Ok(new ResponseResultDto(result));
@@ -37,10 +33,10 @@ namespace Revit.WebAPI.Controllers
             return NotFound(new ResponseResultDto().SetNotFound());
         }
 
-        [HttpPost()]
-        public async Task<IActionResult> CreateProjectFolder([FromBody] ProjectCreateFolderDto projectCreateFolderDto)
+        [HttpPost]
+        public async Task<IActionResult> CreateProjectFolder(long projectId, ProjectCreateFolderDto projectCreateFolderDto)
         {
-            var result = projectService.CreateProjectFolder(projectCreateFolderDto);
+            var result = projectFolderService.CreateProjectFolder(projectId,projectCreateFolderDto);
             if (result != null )
             {
                 return Ok(new ResponseResultDto(result));
@@ -48,7 +44,16 @@ namespace Revit.WebAPI.Controllers
             return NotFound(new ResponseResultDto().SetError());
         }
 
-
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProjectFolder(long folderId)
+        {
+            var result = projectFolderService.DeleteProjectFolder(folderId);
+            if (result >0)
+            {
+                return Ok(new ResponseResultDto());
+            }
+            return NotFound(new ResponseResultDto().SetError());
+        }
 
     }
 }

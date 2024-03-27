@@ -8,8 +8,8 @@ D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\ne
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.EntityFrameworkCore.AssemblyInfoInputs.cache
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.EntityFrameworkCore.AssemblyInfo.cs
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.EntityFrameworkCore.csproj.CoreCompileInputs.cache
-D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.EntityFrameworkCore.csproj.CopyComplete
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.EntityFrameworkCore.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\refint\Revit.EntityFrameworkCore.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.EntityFrameworkCore.pdb
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\ref\Revit.EntityFrameworkCore.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.EntityFrameworkCore\obj\Debug\net6.0\Revit.En.5FFB5155.Up2Date

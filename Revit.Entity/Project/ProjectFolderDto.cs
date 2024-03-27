@@ -17,6 +17,7 @@ namespace Revit.Entity.Project
         public string FileSize { get; set; } = "";
 
         public string FileExtension { get; set; } = "";
+        public string RelativePath { get; set; } = "";
 
     }
 }

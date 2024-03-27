@@ -24,6 +24,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
             //MySql需要传入版本，ServerVersion.AutoDetect根据连接字符串自动获取
             options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection), b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
             break;
+        case "Sqlite":
+            var sqliteConnection = builder.Configuration.GetConnectionString("SqliteConnection") ?? throw new InvalidOperationException("MySqlConnection在appsettings.json未发现");
+            //MySql需要传入版本，ServerVersion.AutoDetect根据连接字符串自动获取
+            options.UseSqlite(sqliteConnection, b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
+            break;
     }
 });
 

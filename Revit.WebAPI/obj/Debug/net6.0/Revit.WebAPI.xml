@@ -29,7 +29,7 @@
             CorsOrigins
             </summary>
         </member>
-        <member name="F:Revit.WebAPI.Auth.AppSettings.Authentication">
+        <member name="F:Revit.WebAPI.Auth.AppSettings.Autherization">
             <summary>
             Authentication
             </summary>
@@ -95,6 +95,17 @@
             删除权限
             </summary>
             <param name="id"></param>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.ProjectsController.#ctor(Revit.Service.Projects.IProjectService)">
+            <summary>
+            项目控制类
+            </summary>
+            <param name="projectService"></param>
+        </member>
+        <member name="M:Revit.WebAPI.Controllers.ProjectsController.PostAsync(Revit.Entity.Project.ProjectCreateDto)">
+            <summary>
+            创建项目
+            </summary>
         </member>
         <member name="M:Revit.WebAPI.Controllers.UsersController.Get(Revit.Entity.Users.UserPageRequestDto)">
             <summary>

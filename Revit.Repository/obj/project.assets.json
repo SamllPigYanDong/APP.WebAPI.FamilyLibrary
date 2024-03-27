@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net6.0": {
       "AutoMapper/12.0.1": {
         "type": "package",
         "dependencies": {
@@ -456,7 +456,7 @@
       },
       "Revit.Entity/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
+        "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper": "12.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.20",
@@ -472,7 +472,7 @@
       },
       "Revit.EntityFrameworkCore/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
+        "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Revit.Entity": "1.0.0"
         },
@@ -1114,7 +1114,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net6.0": [
       "Revit.EntityFrameworkCore >= 1.0.0"
     ]
   },
@@ -1140,15 +1140,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {
             "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {
               "projectPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj"
@@ -1168,8 +1168,8 @@
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "imports": [
           "net461",
           "net462",

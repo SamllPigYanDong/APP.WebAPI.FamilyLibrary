@@ -25,19 +25,17 @@ namespace Revit.Service.Projects
         private readonly IBaseRepository<R_ProjectUser> projectUserRepository;
         private readonly IBaseRepository<R_ProjectFolder> projectFolderRepository;
         private readonly IMapper mapper;
-        private readonly IConfiguration configuration;
 
         public ProjectService(IBaseRepository<R_Project> projectRepository
             , IBaseRepository<R_User> usertRepository, IBaseRepository<R_ProjectUser> projectUserRepository
             , IBaseRepository<R_ProjectFolder> projectFolderRepository
-            , IMapper mapper, IConfiguration configuration) : base(mapper)
+            , IMapper mapper) : base(mapper)
         {
             this.projectRepository = projectRepository;
             this.userRepository = usertRepository;
             this.projectUserRepository = projectUserRepository;
             this.projectFolderRepository = projectFolderRepository;
             this.mapper = mapper;
-            this.configuration = configuration;
         }
 
         /// <summary>
@@ -113,28 +111,53 @@ namespace Revit.Service.Projects
         {
             // 定义文件保存的路径
             var project = mapper.Map<R_Project>(createDto);
-            var basePath = @$"{Directory.GetCurrentDirectory()}/{configuration.GetValue<string>(Appsettings.FileSaveBasePath)}";
             var baseFolder = new R_ProjectFolder()
             {
                 CreationTime = DateTime.Now,
-                Name = "RootPath",
+                Name = "项目根目录",
                 RelativePath = $"",
                 CreatorId = createDto.CreatorId,
                 ProjectId = project.Id,
                 LastModificationTime = DateTime.Now,
             };
             projectFolderRepository.Add(baseFolder);
-
+            var basePath = @"ProjectRootPath";
             var projectBaseFolder = new R_ProjectFolder()
             {
-                CreationTime = DateTime.Now,
-                Name = "ProjectRootPath",
-                RelativePath = @"ProjectRootPath",
+                Name = "全部文件",
+                RelativePath = basePath,
                 CreatorId = createDto.CreatorId,
                 ProjectId = project.Id,
-                LastModificationTime = DateTime.Now,
             };
             projectFolderRepository.Add(projectBaseFolder);
+
+            var modelBaseFolder = new R_ProjectFolder()
+            {
+                Name = "模型",
+                RelativePath = Path.Combine(basePath, "模型"),
+                CreatorId = createDto.CreatorId,
+                ProjectId = project.Id,
+            };
+            projectFolderRepository.Add(modelBaseFolder);
+
+            var otherBaseFolder = new R_ProjectFolder()
+            {
+                Name = "其他",
+                RelativePath = Path.Combine(basePath, "其他"),
+                CreatorId = createDto.CreatorId,
+                ProjectId = project.Id,
+            };
+            projectFolderRepository.Add(otherBaseFolder);
+
+            var drawBaseFolder = new R_ProjectFolder()
+            {
+                Name = "图纸",
+                RelativePath = Path.Combine(basePath, "图纸"),
+                CreatorId = createDto.CreatorId,
+                ProjectId = project.Id,
+            };
+            projectFolderRepository.Add(drawBaseFolder);
+
             return true;
         }
 
@@ -163,59 +186,6 @@ namespace Revit.Service.Projects
             return projectRepository.Delete(x => x.Id == projectId);
         }
 
-        /// <summary>
-        /// 获取项目的文档
-        /// </summary>
-        /// <param name="projectGetFileDto"></param>
-        /// <returns></returns>
-        public List<ProjectFolderDto> GetProjectPathFolders(ProjectGetFoldersDto projectGetFileDto)
-        {
-
-            var project = projectRepository.Get(projectGetFileDto.ProjectId);
-            if (project == null) return null;
-            var folderModels = projectFolderRepository.GetQueryable().Where(x => x.ProjectId == project.Id && x.RelativePath.Contains(projectGetFileDto.RequestPath));
-
-            var results = mapper.Map<List<ProjectFolderDto>>(folderModels);
-            foreach (var result in results)
-            {
-                var user = userRepository.Get(result.CreatorId);
-                if (user!=null)
-                {
-                    result.CreatorName = user.UserName??"未知用户";
-                }
-            }
-            return results;
-        }
-
-
-        /// <summary>
-        /// 创建项目中的文档
-        /// </summary>
-        /// <param name="createFolderDto"></param>
-        /// <returns></returns>
-        public ProjectFolderDto CreateProjectFolder(ProjectCreateFolderDto createFolderDto)
-        {
-            var hasParentFolder = projectFolderRepository.GetQueryable()
-                .Any(x => x.ProjectId == createFolderDto.ProjectId && x.RelativePath.Contains(createFolderDto.RequestPath));
-            var hasFolder = projectFolderRepository.GetQueryable()
-               .Any(x => x.ProjectId == createFolderDto.ProjectId && x.RelativePath.Contains(Path.Combine(createFolderDto.RequestPath, createFolderDto.FolderName)));
-            if (hasParentFolder&&! hasFolder)
-            {
-                var newFolder = new R_ProjectFolder()
-                {
-                    CreationTime = DateTime.Now,
-                    LastModificationTime = DateTime.Now,
-                    Name = createFolderDto.FolderName,
-                    RelativePath = Path.Combine(createFolderDto.RequestPath, createFolderDto.FolderName),
-                    CreatorId = createFolderDto.CreatorId,
-                    ProjectId = createFolderDto.ProjectId
-                };
-                var result=projectFolderRepository.Add(newFolder);
-                var projectFolderDto=mapper.Map<ProjectFolderDto>(result);
-                return projectFolderDto;
-            }
-            return null;
-        }
 
 
     }

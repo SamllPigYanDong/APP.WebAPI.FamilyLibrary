@@ -8,12 +8,6 @@ namespace Revit.Entity.Project
 {
     public class ProjectCreateFolderDto
     {
-
-        /// <summary>
-        /// 创建人Id
-        /// </summary>
-        public long ProjectId { get; set; }
-
         /// <summary>
         /// 创建人Id
         /// </summary>
@@ -21,9 +15,9 @@ namespace Revit.Entity.Project
 
 
         /// <summary>
-        /// 请求的相对路径
+        /// 请求根目录Id
         /// </summary>
-        public string RequestPath { get; set; }
+        public long FolderId { get; set; }
 
 
         /// <summary>
