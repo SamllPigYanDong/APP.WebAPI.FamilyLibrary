@@ -121,13 +121,14 @@ namespace Revit.Service.Projects
                 LastModificationTime = DateTime.Now,
             };
             projectFolderRepository.Add(baseFolder);
-            var basePath = @"ProjectRootPath";
+            var basePath = @"全部文件";
             var projectBaseFolder = new R_ProjectFolder()
             {
                 Name = "全部文件",
                 RelativePath = basePath,
                 CreatorId = createDto.CreatorId,
                 ProjectId = project.Id,
+                IsRoot=true
             };
             projectFolderRepository.Add(projectBaseFolder);
 
@@ -187,6 +188,15 @@ namespace Revit.Service.Projects
         }
 
 
-
+        public async Task<IEnumerable<ProjectFolderDto>> GetRecentlyFiles(long userId)
+        {
+            var files = projectFolderRepository.GetQueryable()
+                .Where(x => !string.IsNullOrWhiteSpace(x.FileExtension) && x.CreatorId == userId);
+            if (files != null && files.Any())
+            {
+                var result = mapper.Map<IEnumerable<ProjectFolderDto>>(files);
+            }
+            return null;
+        }
     }
 }

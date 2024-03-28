@@ -48,12 +48,16 @@ namespace Revit.Service.Projects
         /// <returns></returns>
         public List<ProjectFolderDto> GetProjectPathFolders(long projectId, ProjectGetFoldersDto projectGetFileDto)
         {
-            var basePath = Path.Combine(Directory.GetCurrentDirectory(), "Base", projectId.ToString(), "ProjectRootPath");
-            var requestPath = Path.Combine(basePath, projectGetFileDto.RequestPath);
+            string requestPath = projectGetFileDto.RequestPath??"";
+            if (string.IsNullOrWhiteSpace(requestPath))
+            {
+                requestPath = "";
+            }
             var project = projectRepository.Get(projectId);
             if (project == null) return null;
-            var folderModels = projectFolderRepository.GetQueryable().Where(x => x.ProjectId == project.Id
-            && x.RelativePath.Contains(projectGetFileDto.RequestPath));
+            var folderModels = projectFolderRepository.GetQueryable().Where(x => x.ProjectId == project.Id);
+            folderModels= folderModels.Where(x=>(x.RelativePath.Contains(requestPath.Trim()) && x.RelativePath!=requestPath)
+            ||(string.IsNullOrWhiteSpace(requestPath)&&!string.IsNullOrWhiteSpace( x.RelativePath)));
             var results = mapper.Map<List<ProjectFolderDto>>(folderModels);
             foreach (var result in results)
             {

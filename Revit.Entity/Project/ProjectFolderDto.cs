@@ -19,5 +19,7 @@ namespace Revit.Entity.Project
         public string FileExtension { get; set; } = "";
         public string RelativePath { get; set; } = "";
 
+        public bool IsRoot { get; set; }
+
     }
 }

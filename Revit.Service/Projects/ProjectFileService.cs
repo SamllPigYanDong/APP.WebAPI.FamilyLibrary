@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Revit.Entity.Project;
 using Revit.Entity.Users;
@@ -22,11 +23,12 @@ namespace Revit.Service.Projects
         private readonly IBaseRepository<R_ProjectFolder> projectFolderRepository;
         private readonly IMapper mapper;
         private readonly IConfiguration configuration;
+        private readonly UserManager<R_User> userManager;
 
         public ProjectFileService(IBaseRepository<R_Project> projectRepository
             , IBaseRepository<R_User> usertRepository, IBaseRepository<R_ProjectUser> projectUserRepository
             , IBaseRepository<R_ProjectFolder> projectFolderRepository
-            , IMapper mapper, IConfiguration configuration) : base(mapper)
+            , IMapper mapper, IConfiguration configuration, UserManager<R_User> userManager) : base(mapper)
         {
             this.projectRepository = projectRepository;
             this.userRepository = usertRepository;
@@ -34,10 +36,11 @@ namespace Revit.Service.Projects
             this.projectFolderRepository = projectFolderRepository;
             this.mapper = mapper;
             this.configuration = configuration;
+            this.userManager = userManager;
         }
 
 
-        public async Task<IEnumerable<ProjectFolderDto>> UploadProjectFile(long folderId, ProjectUploadFileDto projectUploadFileDto)
+        public async Task<IEnumerable<ProjectFolderDto>> UploadProjectFile(long folderId,long userId, ProjectUploadFileDto projectUploadFileDto)
         {
             var folder = projectFolderRepository.Get(folderId);
             if (folder == null)
@@ -53,7 +56,8 @@ namespace Revit.Service.Projects
                     ProjectId = folder.ProjectId,
                     Name = Path.GetFileNameWithoutExtension(file.FileName),
                     FileExtension = Path.GetExtension(file.FileName).Trim('.'),
-                    FileSize = ConvertFileSize(file.Length)
+                    FileSize = ConvertFileSize(file.Length), 
+                    CreatorId = userId
                 };
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Base", folder.ProjectId.ToString(), folder.RelativePath);
                 if (!Directory.Exists(filePath))
@@ -64,11 +68,22 @@ namespace Revit.Service.Projects
                 {
                     await file.CopyToAsync(stream);
                 }
-                var projectFolderDto = mapper.Map<ProjectFolderDto>(newFile);
-                results.Add(projectFolderDto);
+                var result=projectFolderRepository.Add(newFile);
+                if (result!=null)
+                {
+                    var projectFolderDto = mapper.Map<ProjectFolderDto>(result);
+                    var user = userRepository.Get(userId);
+                    projectFolderDto.CreatorName = user?.FullName ?? "未知用户";
+                    results.Add(projectFolderDto);
+                }
+                else
+                {
+                    throw new Exception("上传失败");
+                }
             }
             return results;
         }
+
 
 
         public string ConvertFileSize(long fileSize)

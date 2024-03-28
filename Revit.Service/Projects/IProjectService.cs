@@ -9,5 +9,6 @@ namespace Revit.Service.Projects
         int DeleteProject(long projectId);
         IEnumerable<ProjectResponseDto> GetProjects(ProjectRequestDto projectRequestDto);
         IEnumerable<UserDto> GetProjectUsers(long projectId);
+        Task<IEnumerable<ProjectFolderDto>> GetRecentlyFiles(long userId);
     }
 }

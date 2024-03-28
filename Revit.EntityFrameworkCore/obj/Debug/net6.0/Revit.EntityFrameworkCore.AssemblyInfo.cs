@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Revit.EntityFrameworkCore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3baa6c89cb59ac742139b2e27cd2b7fed4d196fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de2fff78af79c95471a79e3934c9e1dd8fc9496f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Revit.EntityFrameworkCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Revit.EntityFrameworkCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -97,5 +97,17 @@ namespace Revit.WebAPI.Controllers
 
         }
 
+
+        [HttpGet("Files")]
+        public async Task<ActionResult<ResponseResultDto>> GetRecentlyFiles([FromQuery] long userId)
+        {
+            var result = projectService.GetRecentlyFiles(userId);
+            if (result != null)
+            {
+                return Ok(new ResponseResultDto(result));
+            }
+            return NotFound(new ResponseResultDto().SetError());
+        }
+
     }
 }

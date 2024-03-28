@@ -119,3 +119,5 @@ D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\runtimes
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\runtimes\win-x86\native\e_sqlite3.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+D:\Git-Space\webapi-revitor\RevitorWebAPI\Revit.WebAPI\obj\Debug\net6.0\Revit.WebAPI.MvcApplicationPartsAssemblyInfo.cs
