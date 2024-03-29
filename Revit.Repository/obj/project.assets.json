@@ -1119,23 +1119,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yandong\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Zero\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Repository\\Revit.Repository.csproj",
+      "projectUniqueName": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Repository\\Revit.Repository.csproj",
       "projectName": "Revit.Repository",
-      "projectPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Repository\\Revit.Repository.csproj",
-      "packagesPath": "C:\\Users\\yandong\\.nuget\\packages\\",
-      "outputPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Repository\\obj\\",
+      "projectPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Repository\\Revit.Repository.csproj",
+      "packagesPath": "C:\\Users\\Zero\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\yandong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Zero\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1150,8 +1150,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {
-              "projectPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj"
+            "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {
+              "projectPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj"
             }
           }
         }

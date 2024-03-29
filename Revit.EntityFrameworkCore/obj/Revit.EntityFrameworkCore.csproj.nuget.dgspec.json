@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {}
+    "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {}
   },
   "projects": {
-    "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {
+    "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj",
+        "projectUniqueName": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj",
         "projectName": "Revit.EntityFrameworkCore",
-        "projectPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj",
-        "packagesPath": "C:\\Users\\yandong\\.nuget\\packages\\",
-        "outputPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.EntityFrameworkCore\\obj\\",
+        "projectPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\Revit.EntityFrameworkCore.csproj",
+        "packagesPath": "C:\\Users\\Zero\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.EntityFrameworkCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\yandong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Zero\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\Revit.Entity.csproj": {
-                "projectPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\Revit.Entity.csproj"
+              "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Entity\\Revit.Entity.csproj": {
+                "projectPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Entity\\Revit.Entity.csproj"
               }
             }
           }
@@ -72,20 +72,20 @@
         }
       }
     },
-    "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\Revit.Entity.csproj": {
+    "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Entity\\Revit.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\Revit.Entity.csproj",
+        "projectUniqueName": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Entity\\Revit.Entity.csproj",
         "projectName": "Revit.Entity",
-        "projectPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\Revit.Entity.csproj",
-        "packagesPath": "C:\\Users\\yandong\\.nuget\\packages\\",
-        "outputPath": "D:\\Git-Space\\webapi-revitor\\RevitorWebAPI\\Revit.Entity\\obj\\",
+        "projectPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Entity\\Revit.Entity.csproj",
+        "packagesPath": "C:\\Users\\Zero\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.Entity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\yandong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Zero\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
