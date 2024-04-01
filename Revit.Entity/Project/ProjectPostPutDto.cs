@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Revit.Entity.Project
 {
-    public class ProjectCreateDto
+    public class ProjectPostPutDto
     {
 
         public long CreatorId { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Crmf;
 using Revit.Entity.Commons;
 using Revit.Entity.Project;
 using Revit.Service.Projects;
@@ -54,11 +55,26 @@ namespace Revit.WebAPI.Controllers
             }
         }
 
+        [HttpDelete("{projectId}/User/{userId}")]
+        public IActionResult DeleteProjectUser(long projectId, long userId)
+        {
+            var result = projectService.DeleteProjectUser(projectId, userId);
+            if (result > 0)
+            {
+                return Ok(new ResponseResultDto() { Content = result, Code = ResponseCode.Success });
+            }
+            else
+            {
+                return BadRequest(new ResponseResultDto() { Code = ResponseCode.NotFound, Message = "该项目无成员。" });
+            }
+        }
+
+
         /// <summary>
         /// 创建项目
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<ProjectResponseDto>> PostAsync([FromForm] ProjectCreateDto projectCreateDto)
+        public async Task<ActionResult<ProjectResponseDto>> PostAsync([FromForm] ProjectPostPutDto projectCreateDto)
         {
             var result = await projectService.CreateProject(projectCreateDto);
 
@@ -87,13 +103,33 @@ namespace Revit.WebAPI.Controllers
         }
 
 
-
+        [HttpPost("{projectId}/User/{userId}")]
+        public ActionResult<ResponseResultDto> AddProjectUser(long projectId, long userId)
+        {
+            var result = projectService.AddProjectUser(projectId, userId);
+            if (result != null)
+            {
+                return Ok(new ResponseResultDto(result));
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
 
 
         [HttpPut]
-        private void Put()
+        private async Task<ActionResult<ResponseResultDto>> Put([FromForm] ProjectPostPutDto projectModify)
         {
-
+            var result = projectService.ModifyProject(projectModify);
+            if (result > 0)
+            {
+                return Ok(new ResponseResultDto(result));
+            }
+            else
+            {
+                return NoContent();
+            }
 
         }
 
@@ -108,6 +144,9 @@ namespace Revit.WebAPI.Controllers
             }
             return NotFound(new ResponseResultDto().SetError());
         }
+
+
+
 
     }
 }
