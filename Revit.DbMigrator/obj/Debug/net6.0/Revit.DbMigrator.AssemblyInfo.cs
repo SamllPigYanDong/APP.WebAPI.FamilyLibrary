@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Revit.DbMigrator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06d0f227a4df5a6e503976c759bda54fbc451497")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20bb7d7fde18edad467ca2e0c531ef046b657535")]
 [assembly: System.Reflection.AssemblyProductAttribute("Revit.DbMigrator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Revit.DbMigrator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
