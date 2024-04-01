@@ -35,7 +35,7 @@ namespace Revit.Entity.Commons
             CreateMap<RoleUpdateDto, R_Role>();
 
             CreateMap<R_Project, ProjectResponseDto>();
-            CreateMap<ProjectCreateDto,   R_Project>();
+            CreateMap<ProjectPostPutDto,   R_Project>();
 
             CreateMap<R_ProjectFolder, ProjectFolderDto>();
         }

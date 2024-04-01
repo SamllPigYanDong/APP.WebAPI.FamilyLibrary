@@ -70,7 +70,7 @@ namespace Revit.Service.Projects
         /// </summary>
         /// <param name="createDto"></param>
         /// <returns></returns>
-        public async Task<ProjectResponseDto> CreateProject(ProjectCreateDto createDto)
+        public async Task<ProjectResponseDto> CreateProject(ProjectPostPutDto createDto)
         {
             R_Project project = mapper.Map<R_Project>(createDto); ;
             //// 保存图标在项目文档基础路径下
@@ -106,6 +106,14 @@ namespace Revit.Service.Projects
             }
             return null;
         }
+
+        public async int ModifyProject(ProjectPostPutDto projectModify)
+        {
+            var r_project = mapper.Map<R_Project>(projectModify);
+            var account =await projectRepository.Update(r_project);
+            return account;
+        }
+
 
         private bool CreateProjectRootPath(R_Project createDto)
         {
@@ -198,5 +206,29 @@ namespace Revit.Service.Projects
             }
             return null;
         }
+
+        public  int DeleteProjectUser(long projectId, long userId)
+        {
+            var account= projectUserRepository.Delete(x=>x.ProjectId==projectId &&x.UserId==userId);
+            return account;
+        }
+
+
+        public UserDto AddProjectUser(long projectId, long userId)
+        {
+            var projectUser = new R_ProjectUser();
+            projectUser.ProjectId = projectId;
+            projectUser.UserId = userId;    
+            var result = projectUserRepository.Add(projectUser);
+            if (result!=null)
+            {
+                var user = userRepository.Get(userId);
+                var userDto = mapper.Map<UserDto>(user);
+                return userDto;
+            }
+            return null;
+        }
+
+       
     }
 }
