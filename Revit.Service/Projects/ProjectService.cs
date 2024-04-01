@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Revit.Entity.Accounts;
 using Revit.Entity.Commons;
@@ -90,6 +91,14 @@ namespace Revit.Service.Projects
             //}
             var result = projectRepository.Add(project);
             var creator = userRepository.Get(createDto.CreatorId);
+            if (creator!=null&&result!=null)
+            {
+                projectUserRepository.Add(new R_ProjectUser() { ProjectId = result.Id, UserId = creator.Id });
+            }
+            else
+            {
+                throw new Exception("添加项目失败或用户不存在;");
+            }
             var accountDto = mapper.Map<AccountDto>(creator);
             if (result != null)
             {
@@ -107,10 +116,10 @@ namespace Revit.Service.Projects
             return null;
         }
 
-        public async int ModifyProject(ProjectPostPutDto projectModify)
+        public  int ModifyProject(ProjectPostPutDto projectModify)
         {
             var r_project = mapper.Map<R_Project>(projectModify);
-            var account =await projectRepository.Update(r_project);
+            var account = projectRepository.Update(r_project);
             return account;
         }
 
@@ -175,12 +184,18 @@ namespace Revit.Service.Projects
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public IEnumerable<UserDto> GetProjectUsers(long projectId)
+        public  IEnumerable<UserDto> GetProjectUsers(long projectId)
         {
-            var users = (from projectUser in projectUserRepository.GetQueryable()
-                         where projectUser.ProjectId == projectId
-                         join user in userRepository.GetQueryable() on projectUser.UserId equals user.Id
-                         select user).ToList();
+            var userIds = projectUserRepository.GetQueryable().Where(x=>x.ProjectId==projectId).Select(x=>x.UserId);
+            var users=new List<R_User>();
+            foreach (var userId in userIds)
+            {
+               var user= userRepository.Get(userId);
+                if (user!=null)
+                {
+                    users.Add(user);
+                }
+            }
             var results = mapper.Map<List<UserDto>>(users);
             return results;
         }

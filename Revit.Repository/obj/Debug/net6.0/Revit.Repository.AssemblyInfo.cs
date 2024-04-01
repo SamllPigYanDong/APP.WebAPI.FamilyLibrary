@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Revit.Repository")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06d0f227a4df5a6e503976c759bda54fbc451497")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e817d41b6208c4b559cd36c25312d059f5efa843")]
 [assembly: System.Reflection.AssemblyProductAttribute("Revit.Repository")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Revit.Repository")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

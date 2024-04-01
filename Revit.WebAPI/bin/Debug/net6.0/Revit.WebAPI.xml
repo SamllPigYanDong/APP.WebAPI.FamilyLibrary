@@ -102,7 +102,7 @@
             </summary>
             <param name="projectService"></param>
         </member>
-        <member name="M:Revit.WebAPI.Controllers.ProjectsController.PostAsync(Revit.Entity.Project.ProjectCreateDto)">
+        <member name="M:Revit.WebAPI.Controllers.ProjectsController.PostAsync(Revit.Entity.Project.ProjectPostPutDto)">
             <summary>
             创建项目
             </summary>
