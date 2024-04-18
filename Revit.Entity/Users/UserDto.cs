@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Revit.Entity.Roles;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,10 @@ namespace Revit.Entity.Users
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
         public DateTime LastModificationTime { get; set; } = DateTime.Now;
+
+      
+        public  string? PhoneNumber { get; set; }
+
 
         /// <summary>
         /// 用户名

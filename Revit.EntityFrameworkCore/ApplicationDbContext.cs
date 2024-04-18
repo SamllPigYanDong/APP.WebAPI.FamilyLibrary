@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Revit.Entity.Permissions;
+using Revit.Entity.Problem;
 using Revit.Entity.Project;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
@@ -18,6 +19,7 @@ namespace Revit.EntityFrameworkCore
         public DbSet<R_Permission> R_Permission { get; set; }
         public DbSet<R_Project> R_Project { get; set; }
         public DbSet<R_ProjectUser> R_ProjectUser { get; set; }
+        public DbSet<R_Problem> R_Problem { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -50,10 +52,13 @@ namespace Revit.EntityFrameworkCore
 
             modelBuilder.Entity<R_ProjectUser>().ToTable("R_ProjectUser");
             modelBuilder.Entity<R_ProjectFolder>().ToTable("R_ProjectFolder");
+            modelBuilder.Entity<R_Problem>().ToTable("R_Problem");
         }
 
         private void SetProperties(ModelBuilder modelBuilder)
         {
+
+
 
             modelBuilder.Entity<R_ProjectFolder>(entity =>
             {

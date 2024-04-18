@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Revit.Entity.Accounts;
@@ -198,6 +199,28 @@ namespace Revit.Service.Projects
             }
             var results = mapper.Map<List<UserDto>>(users);
             return results;
+        }
+
+
+        /// <summary>
+        /// 获取项目内的用户
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public int  DeleteProjectUser(long projectId,long userId)
+        {
+            var allUsers=projectUserRepository.GetQueryable().Where(x => x.ProjectId == projectId);
+            if (allUsers.Count()<=1)
+            {
+                return 0;
+            }
+            var projectUsers= projectUserRepository.GetQueryable().Where(x => x.ProjectId == projectId&&userId==x.UserId);
+            int count = 0;
+            foreach (var projectUser in projectUsers)
+            {
+                count+= projectUserRepository.Delete(projectUser);
+            }
+            return count;
         }
 
         /// <summary>

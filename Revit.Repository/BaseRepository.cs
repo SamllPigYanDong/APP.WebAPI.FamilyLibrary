@@ -26,10 +26,24 @@ namespace Revit.Repository
             return entity;
         }
 
+        public async Task<TEntity> AddAsync(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Add(entity);
+            var count = await _dbContext.SaveChangesAsync();
+            return entity;
+        }
+
+
         public int AddRange(List<TEntity> entities)
         {
             _dbContext.Set<TEntity>().AddRange(entities);
             return _dbContext.SaveChanges();
+        }
+
+        public async Task<int> AddRangeAsync(List<TEntity> entities)
+        {
+            _dbContext.Set<TEntity>().AddRange(entities);
+            return await _dbContext.SaveChangesAsync();
         }
 
         public int Count(Expression<Func<TEntity, bool>> predicate)

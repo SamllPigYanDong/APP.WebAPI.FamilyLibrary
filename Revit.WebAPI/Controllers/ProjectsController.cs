@@ -53,6 +53,22 @@ namespace Revit.WebAPI.Controllers
             {
                 return BadRequest(new ResponseResultDto() { Code = ResponseCode.NotFound, Message = "该项目无成员。" });
             }
+
+
+        }
+
+        [HttpDelete("{projectId}/Users/{userId}")]
+        public IActionResult GetUsers(long projectId, long userId)
+        {
+            var result = projectService.DeleteProjectUser(projectId, userId);
+            if (result > 0)
+            {
+                return Ok(new ResponseResultDto() { Content = result, Code = ResponseCode.Success });
+            }
+            else
+            {
+                return BadRequest(new ResponseResultDto() { Code = ResponseCode.NotFound, Message = "删除失败。" });
+            }
         }
 
         [HttpDelete("{projectId}/User/{userId}")]

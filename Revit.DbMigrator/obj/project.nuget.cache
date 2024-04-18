@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0zBIFum4znxMgtvwHLv2YIl4l1rMxCGnlo/G5zgwHDfaX+dwE+qkN8LmaF/LjYVZCcXxnmc4UdKs47+jjc0Uqg==",
+  "dgSpecHash": "C9bR+hNAVsvHDxFEAHmJ2fuBHsgQVz/zt4e42DRhWttb3fl4OKgCmLqDFKHmMWybsTkLJl5j4dtnLFBp+pviYg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.DbMigrator\\Revit.DbMigrator.csproj",
   "expectedPackageFiles": [
