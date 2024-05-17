@@ -106,10 +106,10 @@ namespace Revit.DbMigrator.Migrations
                             ApiMethod = "",
                             Code = "system",
                             Component = "",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9500),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5355),
                             CreatorId = 0L,
                             Icon = "el-icon-s-tools",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9515),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5370),
                             Name = "系统管理",
                             ParentId = 0L,
                             PermissionType = 0,
@@ -123,10 +123,10 @@ namespace Revit.DbMigrator.Migrations
                             ApiMethod = "",
                             Code = "system.user",
                             Component = "views/documentation/index",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9527),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5383),
                             CreatorId = 0L,
                             Icon = "el-icon-user-solid",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9528),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5384),
                             Name = "用户管理",
                             ParentId = 1L,
                             PermissionType = 0,
@@ -140,10 +140,10 @@ namespace Revit.DbMigrator.Migrations
                             ApiMethod = "",
                             Code = "system.role",
                             Component = "views/documentation/index",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9530),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5386),
                             CreatorId = 0L,
                             Icon = "peoples",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9531),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5387),
                             Name = "角色管理",
                             ParentId = 1L,
                             PermissionType = 0,
@@ -157,10 +157,10 @@ namespace Revit.DbMigrator.Migrations
                             ApiMethod = "",
                             Code = "system.permission",
                             Component = "views/documentation/index",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9533),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5388),
                             CreatorId = 0L,
                             Icon = "list",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9533),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5389),
                             Name = "菜单管理",
                             ParentId = 1L,
                             PermissionType = 0,
@@ -174,10 +174,10 @@ namespace Revit.DbMigrator.Migrations
                             ApiMethod = "",
                             Code = "system.rolepermission",
                             Component = "views/documentation/index",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9537),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5392),
                             CreatorId = 0L,
                             Icon = "example",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9537),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5392),
                             Name = "角色权限",
                             ParentId = 1L,
                             PermissionType = 0,
@@ -185,6 +185,59 @@ namespace Revit.DbMigrator.Migrations
                             Status = 1,
                             Url = "rolepermission"
                         });
+                });
+
+            modelBuilder.Entity("Revit.Entity.Problem.R_Problem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasComment("创建时间");
+
+                    b.Property<long>("CreatorId")
+                        .HasColumnType("INTEGER")
+                        .HasComment("创建者Id");
+
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("TEXT")
+                        .HasComment("截止日期");
+
+                    b.Property<string>("Discription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT")
+                        .HasComment("问题描述");
+
+                    b.Property<int>("EmergencyDegree")
+                        .HasColumnType("INTEGER")
+                        .HasComment("紧急程度");
+
+                    b.Property<DateTime>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasComment("最后编辑时间");
+
+                    b.Property<int>("ProblemStatus")
+                        .HasColumnType("INTEGER")
+                        .HasComment("问题状态");
+
+                    b.Property<long>("RelativeFileId")
+                        .HasColumnType("INTEGER")
+                        .HasComment("相关文件Id");
+
+                    b.Property<long>("ResponsibleId")
+                        .HasColumnType("INTEGER")
+                        .HasComment("责任人Id");
+
+                    b.Property<long>("VerifierId")
+                        .HasColumnType("INTEGER")
+                        .HasComment("审核人Id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("R_Problem", (string)null);
                 });
 
             modelBuilder.Entity("Revit.Entity.Project.R_Project", b =>
@@ -233,66 +286,66 @@ namespace Revit.DbMigrator.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5717),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9329),
                             CreatorId = 1L,
                             IconPath = "",
                             Introduction = "",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5714),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9328),
                             ProjectAddress = "",
                             ProjectName = "测试1"
                         },
                         new
                         {
                             Id = 2L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5746),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9336),
                             CreatorId = 1L,
                             IconPath = "",
                             Introduction = "",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5728),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9335),
                             ProjectAddress = "",
                             ProjectName = "测试2"
                         },
                         new
                         {
                             Id = 3L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5755),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9338),
                             CreatorId = 1L,
                             IconPath = "",
                             Introduction = "",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5752),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9338),
                             ProjectAddress = "",
                             ProjectName = "测试3"
                         },
                         new
                         {
                             Id = 4L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5760),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9342),
                             CreatorId = 1L,
                             IconPath = "",
                             Introduction = "",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5758),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9339),
                             ProjectAddress = "",
                             ProjectName = "测试4"
                         },
                         new
                         {
                             Id = 5L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5767),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9352),
                             CreatorId = 1L,
                             IconPath = "",
                             Introduction = "",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5764),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9343),
                             ProjectAddress = "",
                             ProjectName = "测试5"
                         },
                         new
                         {
                             Id = 6L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5774),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9354),
                             CreatorId = 1L,
                             IconPath = "",
                             Introduction = "",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5772),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9353),
                             ProjectAddress = "",
                             ProjectName = "测试6"
                         });
@@ -387,9 +440,9 @@ namespace Revit.DbMigrator.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5244),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(8720),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5264),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(8764),
                             ProjectId = 1L,
                             UserId = 1L
                         });
@@ -446,12 +499,12 @@ namespace Revit.DbMigrator.Migrations
                         new
                         {
                             Id = 1L,
-                            ConcurrencyStamp = "edca20fc-8a40-4922-b394-89090c2907f2",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(6019),
+                            ConcurrencyStamp = "7462ab23-9dc5-48e3-bdd2-c3d733b8e278",
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9656),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(5863),
-                            Name = "管理员",
-                            NormalizedName = "管理员",
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9418),
+                            Name = "admin",
+                            NormalizedName = "ADMIN",
                             Status = 1
                         });
                 });
@@ -514,45 +567,45 @@ namespace Revit.DbMigrator.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9606),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5487),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9606),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5487),
                             PermissionId = 1L,
                             RoleId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9610),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5492),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9611),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5492),
                             PermissionId = 2L,
                             RoleId = 1L
                         },
                         new
                         {
                             Id = 3L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9612),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5494),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9612),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5494),
                             PermissionId = 3L,
                             RoleId = 1L
                         },
                         new
                         {
                             Id = 4L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9613),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5495),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9614),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5496),
                             PermissionId = 4L,
                             RoleId = 1L
                         },
                         new
                         {
                             Id = 5L,
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9615),
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5497),
                             CreatorId = 0L,
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 260, DateTimeKind.Local).AddTicks(9615),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 447, DateTimeKind.Local).AddTicks(5497),
                             PermissionId = 5L,
                             RoleId = 1L
                         });
@@ -650,17 +703,17 @@ namespace Revit.DbMigrator.Migrations
                         {
                             Id = 1L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "12daf2cb-78d0-4047-9f60-ff3e52927696",
-                            CreationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(6154),
+                            ConcurrencyStamp = "75543467-8555-4b9a-a2e9-b1a7ca0c99f2",
+                            CreationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9794),
                             CreatorId = 0L,
                             Email = "admin@R_tric.com",
                             EmailConfirmed = true,
                             FullName = "管理员",
-                            LastModificationTime = new DateTime(2024, 3, 27, 21, 17, 22, 250, DateTimeKind.Local).AddTicks(6141),
+                            LastModificationTime = new DateTime(2024, 5, 4, 22, 33, 27, 444, DateTimeKind.Local).AddTicks(9782),
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@R_TRIC.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELvDyAVZFCjr2SQGCBh3p7CRPXHN/cuNNI8Iun6TwZ4H9ZYNvPLeVoJYBIBJxqliVw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOuFLkMMDXx8dNe4sN2fHjGLpSyDNrWgiiiTPZ1OeqzUmG5RXGnCkSLGef2wpAVwLg==",
                             PhoneNumber = "123456789",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "abc",

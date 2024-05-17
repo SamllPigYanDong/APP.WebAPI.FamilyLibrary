@@ -214,12 +214,7 @@ namespace Revit.Service.Projects
             {
                 return 0;
             }
-            var projectUsers= projectUserRepository.GetQueryable().Where(x => x.ProjectId == projectId&&userId==x.UserId);
-            int count = 0;
-            foreach (var projectUser in projectUsers)
-            {
-                count+= projectUserRepository.Delete(projectUser);
-            }
+            var count = projectUserRepository.Delete(x => x.ProjectId == projectId&&userId==x.UserId);
             return count;
         }
 
@@ -245,11 +240,7 @@ namespace Revit.Service.Projects
             return null;
         }
 
-        public  int DeleteProjectUser(long projectId, long userId)
-        {
-            var account= projectUserRepository.Delete(x=>x.ProjectId==projectId &&x.UserId==userId);
-            return account;
-        }
+    
 
 
         public UserDto AddProjectUser(long projectId, long userId)

@@ -163,8 +163,8 @@ namespace Revit.EntityFrameworkCore
                 {
                     Id = adminRoleId,
                     CreationTime = DateTime.Now,
-                    Name = "管理员",
-                    NormalizedName = "管理员".ToUpper(),
+                    Name = "admin",
+                    NormalizedName = "admin".ToUpper(),
                     Status = RoleStatus.Normal
                 }
             );

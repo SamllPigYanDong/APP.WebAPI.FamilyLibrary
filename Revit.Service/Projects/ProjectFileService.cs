@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Revit.Entity.Project;
 using Revit.Entity.Users;
 using Revit.Repository;
 using Revit.Service.Commons;
+using Revit.Service.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -102,5 +106,26 @@ namespace Revit.Service.Projects
                 return $"{Math.Round(d: fileSize / GB, 2)} GB";
         }
 
+        public async Task<FileStream> GetRvtGltfFile(long folderId)
+        {
+            var basePath= @"C:\Users\Zero\Documents\GitHub\webapi-revitor\Revit.WebAPI\Base\13";
+            var folder= projectFolderRepository.Get(folderId);
+            if (folder == null||!folder.FileExtension.ToLower().Contains("rvt")) return null;
+            var filePath = Path.Combine(basePath,folder.RelativePath);
+            var savePath = Path.Combine(basePath,Path.GetDirectoryName(folder.RelativePath), "1.glb");
+            var strList = new string[] { @filePath, savePath };
+            var exePath = Path.Combine("C:\\Users\\Zero\\Documents\\GitHubN\\Revit2GLTF\\Test\\bin\\Debug\\net48", "Revit2018.exe");
+            //var result = GltfTransformExtension.StartProcess(exePath, strList);
+            if (true)
+            {
+                var bytes=File.ReadAllBytes(savePath);
+                var fileStream=new FileStream(savePath, FileMode.Open);
+                return fileStream;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

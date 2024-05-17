@@ -87,6 +87,7 @@ namespace Revit.Service.Projects
                 .Any(x => x.ProjectId == projectId && x.RelativePath.Contains(folder.RelativePath));
             if (hasParentFolder)
             {
+                var user=userRepository.Get(createFolderDto.CreatorId);
                 var newFolder = new R_ProjectFolder()
                 {
                     Name = createFolderDto.FolderName,
@@ -96,6 +97,7 @@ namespace Revit.Service.Projects
                 };
                 var result = projectFolderRepository.Add(newFolder);
                 var projectFolderDto = mapper.Map<ProjectFolderDto>(result);
+                projectFolderDto.CreatorName = user.FullName;
                 return projectFolderDto;
             }
             return null;
