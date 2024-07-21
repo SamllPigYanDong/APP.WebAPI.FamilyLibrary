@@ -14,14 +14,14 @@ namespace Revit.Entity.Commons
         /// <summary>
         /// 每页记录数量
         /// </summary>
-        public int PrePage { get; set; }
+        public int PageSize { get; set; }
 
         /// <summary>
         /// 当前页码
         /// </summary>
-        public int Page { get; set; }
+        public int PageIndex { get; set; }
 
 
-        public string SearchMessage { get; set; }
+        public string? SearchMessage { get; set; } = "";
     }
 }

@@ -84,7 +84,7 @@ namespace Revit.Service.Projects
                 return null;
             }
             var hasParentFolder = projectFolderRepository.GetQueryable()
-                .Any(x => x.ProjectId == projectId && x.RelativePath.Contains(folder.RelativePath));
+                .Any(x => x.ProjectId == projectId && x.LocalUrl.Contains(folder.RelativePath));
             if (hasParentFolder)
             {
                 var user=userRepository.Get(createFolderDto.CreatorId);

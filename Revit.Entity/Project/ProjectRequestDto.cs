@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Revit.Entity.Project
 {
-    public class ProjectRequestDto : PageRequestBase
+    public class ProjectRequestDto : PageRequestDto
     {
         //删除
         public long UserId { get; set; }

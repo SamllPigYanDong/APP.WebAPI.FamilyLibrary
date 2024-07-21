@@ -59,15 +59,5 @@ namespace Revit.Service.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] Revit2018 {
-            get {
-                object obj = ResourceManager.GetObject("Revit2018", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

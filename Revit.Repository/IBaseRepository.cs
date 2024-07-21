@@ -56,14 +56,14 @@ namespace Revit.Repository
         /// 获取所有记录
         /// </summary>
         /// <returns></returns>
-        List<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll();
 
         /// <summary>
         /// 根据筛选条件，获取记录
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        List<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// 查询
@@ -80,7 +80,7 @@ namespace Revit.Repository
         /// <param name="take"></param>
         /// <param name="queryable"></param>
         /// <returns></returns>
-        List<TEntity> GetPagedList(int skip, int take, IQueryable<TEntity> queryable);
+        IEnumerable<TEntity> GetPagedList(int skip, int take, IQueryable<TEntity> queryable);
 
         /// <summary>
         /// 更新记录

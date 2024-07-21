@@ -9,8 +9,19 @@ namespace Revit.Service.Commons
     public static class Appsettings
     {
         /// <summary>
-        /// FileSaveBasePath
+        /// 上传文件存储根路径
         /// </summary>
-        public const string FileSaveBasePath = "FileSaveBasePath";
+        public static string BasePath = "UploadFiles";
+
+        /// <summary>
+        /// 项目文件存储路径
+        /// </summary>
+        public static string BasePath_Project_Public = Path.Combine(BasePath, "Public", "Projects");
+
+        /// <summary>
+        /// 项目文件存储路径
+        /// </summary>
+        public static string BasePath_Family_Public = Path.Combine(BasePath, "Public", "Famliies");
+
     }
 }

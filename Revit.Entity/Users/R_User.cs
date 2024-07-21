@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,6 +32,15 @@ namespace Revit.Entity.Users
         /// </summary>
         [MaxLength(500)]
         public string? Remark { get; set; }
+
+
+        public static async Task<R_User?> GetCurrentUser(IHttpContextAccessor httpContextAccessor
+            , UserManager<R_User> userManager)
+        {
+            var userName = httpContextAccessor.HttpContext?.User.Identity?.Name;
+            var result = await userManager.FindByNameAsync(userName);
+            return result;
+        }
     }
 
     public enum UserStatus

@@ -20,8 +20,6 @@ namespace Revit.Entity.Commons
         [Comment("创建者Id")]
         public long CreatorId { get; set; }
 
-
-
         [Comment("创建时间")]
         public DateTime CreationTime { get; set; } = DateTime.Now;
 

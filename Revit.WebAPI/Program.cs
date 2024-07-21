@@ -34,6 +34,10 @@ builder.AddRevitServices();
 
 
 builder.AddRevitAutoMapper();
+//新增存储基础地址
+builder.AddStorage();
+//添加ID生成器
+builder.AddIdWorker();
 //swagger
 
 builder.AddRevitUnitOfWork();

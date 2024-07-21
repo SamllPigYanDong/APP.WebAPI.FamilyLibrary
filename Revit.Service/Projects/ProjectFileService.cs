@@ -56,14 +56,13 @@ namespace Revit.Service.Projects
             {
                 var newFile = new R_ProjectFolder()
                 {
-                    RelativePath = Path.Combine(folder.RelativePath, file.FileName),
                     ProjectId = folder.ProjectId,
                     Name = Path.GetFileNameWithoutExtension(file.FileName),
                     FileExtension = Path.GetExtension(file.FileName).Trim('.'),
-                    FileSize = ConvertFileSize(file.Length), 
+                    FileBytesSize = file.Length, 
                     CreatorId = userId
                 };
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Base", folder.ProjectId.ToString(), folder.RelativePath);
+                string filePath = folder.LocalUrl.AbsolutePath;
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
@@ -90,42 +89,29 @@ namespace Revit.Service.Projects
 
 
 
-        public string ConvertFileSize(long fileSize)
-        {
-            const long KB = 1024;
-            const long MB = KB * 1024;
-            const long GB = MB * 1024;
-
-            if (fileSize < KB)
-                return $"{fileSize} B";
-            else if (fileSize < MB)
-                return $"{Math.Round(d: fileSize / KB, 2)} KB";
-            else if (fileSize < GB)
-                return $"{Math.Round(d: fileSize / MB, 2)} MB";
-            else
-                return $"{Math.Round(d: fileSize / GB, 2)} GB";
-        }
+       
 
         public async Task<FileStream> GetRvtGltfFile(long folderId)
         {
-            var basePath= @"C:\Users\Zero\Documents\GitHub\webapi-revitor\Revit.WebAPI\Base\13";
-            var folder= projectFolderRepository.Get(folderId);
-            if (folder == null||!folder.FileExtension.ToLower().Contains("rvt")) return null;
-            var filePath = Path.Combine(basePath,folder.RelativePath);
-            var savePath = Path.Combine(basePath,Path.GetDirectoryName(folder.RelativePath), "1.glb");
-            var strList = new string[] { @filePath, savePath };
-            var exePath = Path.Combine("C:\\Users\\Zero\\Documents\\GitHubN\\Revit2GLTF\\Test\\bin\\Debug\\net48", "Revit2018.exe");
-            //var result = GltfTransformExtension.StartProcess(exePath, strList);
-            if (true)
-            {
-                var bytes=File.ReadAllBytes(savePath);
-                var fileStream=new FileStream(savePath, FileMode.Open);
-                return fileStream;
-            }
-            else
-            {
-                return null;
-            }
+            //var basePath= @"C:\Users\Zero\Documents\GitHub\webapi-revitor\Revit.WebAPI\Base\13";
+            //var folder= projectFolderRepository.Get(folderId);
+            //if (folder == null||!folder.FileExtension.ToLower().Contains("rvt")) return null;
+            //var filePath = Path.Combine(basePath,folder.RelativePath);
+            //var savePath = Path.Combine(basePath,Path.GetDirectoryName(folder.RelativePath), "1.glb");
+            //var strList = new string[] { @filePath, savePath };
+            //var exePath = Path.Combine("C:\\Users\\Zero\\Documents\\GitHubN\\Revit2GLTF\\Test\\bin\\Debug\\net48", "Revit2018.exe");
+            ////var result = GltfTransformExtension.StartProcess(exePath, strList);
+            //if (true)
+            //{
+            //    var bytes=File.ReadAllBytes(savePath);
+            //    var fileStream=new FileStream(savePath, FileMode.Open);
+            //    return fileStream;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            return null;
         }
     }
 }

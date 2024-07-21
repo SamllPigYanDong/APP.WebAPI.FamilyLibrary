@@ -42,14 +42,14 @@ namespace Revit.Service.Roles
             {
                 query = query.Where(x => x.Name.Equals(rolePageRequestDto.Name));
             }
-            rolePageRequestDto.Page = rolePageRequestDto.Page < 1 ? 1 : rolePageRequestDto.Page;
+            rolePageRequestDto.PageIndex = rolePageRequestDto.PageIndex < 1 ? 1 : rolePageRequestDto.PageIndex;
 
             //获取总数、角色列表
             var count = query.Count();
-            var skip = (rolePageRequestDto.Page - 1) * rolePageRequestDto.PrePage;
-            var list = _roleRepository.GetPagedList(skip, rolePageRequestDto.PrePage, query);
-            result.PageIndex = rolePageRequestDto.Page;
-            result.PageSize = rolePageRequestDto.PrePage;
+            var skip = (rolePageRequestDto.PageIndex - 1) * rolePageRequestDto.PageSize;
+            var list = _roleRepository.GetPagedList(skip, rolePageRequestDto.PageSize, query);
+            result.PageIndex = rolePageRequestDto.PageIndex;
+            result.PageSize = rolePageRequestDto.PageSize;
             result.TotalCount = count;
 
             //转换实体

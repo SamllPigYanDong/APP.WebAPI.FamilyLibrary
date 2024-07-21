@@ -28,12 +28,12 @@ namespace Revit.WebAPI.Extension
         {
             assembly.GetReferencedAssemblies().ToList().ForEach(i =>
             {
-                var assembly = Assembly.Load(i);
-                if (!list.Contains(assembly))
-                {
-                    list.Add(assembly);
-                    GetReferanceAssemblies(assembly, list);
-                }
+                    var assembly = Assembly.Load(i);
+                    if (!list.Contains(assembly))
+                    {
+                        list.Add(assembly);
+                        GetReferanceAssemblies(assembly, list);
+                    }
             });
         }
     }

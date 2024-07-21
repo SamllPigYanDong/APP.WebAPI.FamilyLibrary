@@ -50,14 +50,14 @@ namespace Revit.Service.Users
             {
                 query = query.Where(x => x.UserName.Equals(userPageRequestDto.UserName));
             }
-            userPageRequestDto.Page = userPageRequestDto.Page < 1 ? 1 : userPageRequestDto.Page;
+            userPageRequestDto.PageIndex = userPageRequestDto.PageIndex < 1 ? 1 : userPageRequestDto.PageIndex;
 
             //获取总数、用户列表
             var count = query.Count();
-            var skip = (userPageRequestDto.Page - 1) * userPageRequestDto.PrePage;
-            var list = _userRepository.GetPagedList(skip, userPageRequestDto.PrePage, query);
-            result.PageIndex = userPageRequestDto.Page;
-            result.PageSize = userPageRequestDto.PrePage;
+            var skip = (userPageRequestDto.PageIndex - 1) * userPageRequestDto.PageSize;
+            var list = _userRepository.GetPagedList(skip, userPageRequestDto.PageSize, query);
+            result.PageIndex = userPageRequestDto.PageIndex;
+            result.PageSize = userPageRequestDto.PageSize;
             result.TotalCount = count;
 
             //转换实体

@@ -50,7 +50,15 @@
         /// </summary>
         public const string SecurityKey = "SecurityKey";
 
+        /// <summary>
+        /// LoaclStorageBase
+        /// </summary>
+        public const string SaveStorageBase = "SaveStorageBase";
 
-        
+
+        /// <summary>
+        /// BackUpStorageBase
+        /// </summary>
+        public const string BackUpStorageBase = "BackUpStorageBase";
     }
 }

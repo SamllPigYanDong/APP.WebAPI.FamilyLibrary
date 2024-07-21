@@ -1,4 +1,5 @@
-﻿using Revit.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Routing;
+using Revit.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,19 +71,19 @@ namespace Revit.Repository
             return _dbContext.Set<TEntity>().Find(id);
         }
 
-        public List<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return _dbContext.Set<TEntity>().ToList();
         }
 
-        public List<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
         {
-            return _dbContext.Set<TEntity>().Where(predicate).ToList();
+            return _dbContext.Set<TEntity>().Where(predicate).AsQueryable();
         }
 
-        public List<TEntity> GetPagedList(int skip, int take, IQueryable<TEntity> queryable)
+        public IEnumerable<TEntity> GetPagedList(int skip, int take, IQueryable<TEntity> queryable)
         {
-            return this.GetQueryable().Skip(skip).Take(take).ToList();
+            return queryable.Skip(skip).Take(take).ToList();
         }
 
         public IQueryable<TEntity> GetQueryable()

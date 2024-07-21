@@ -1,7 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Revit.Entity.Family;
 using Revit.Entity.Permissions;
 using Revit.Entity.Problem;
 using Revit.Entity.Project;
@@ -20,6 +20,8 @@ namespace Revit.EntityFrameworkCore
         public DbSet<R_Project> R_Project { get; set; }
         public DbSet<R_ProjectUser> R_ProjectUser { get; set; }
         public DbSet<R_Problem> R_Problem { get; set; }
+        public DbSet<R_Family> R_Family { get; set; }
+        public DbSet<R_Category> R_Category { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -53,24 +55,37 @@ namespace Revit.EntityFrameworkCore
             modelBuilder.Entity<R_ProjectUser>().ToTable("R_ProjectUser");
             modelBuilder.Entity<R_ProjectFolder>().ToTable("R_ProjectFolder");
             modelBuilder.Entity<R_Problem>().ToTable("R_Problem");
+            modelBuilder.Entity<R_Family>().ToTable("R_Family");
+            modelBuilder.Entity<R_Category>().ToTable("R_Category");
         }
 
         private void SetProperties(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<R_Category>(entity =>
+            {
+                entity.HasMany<R_FamilyCategory>().WithOne().HasForeignKey(x => x.FamilyId).OnDelete(DeleteBehavior.Cascade);
+                entity.Property(x => x.CategoryType).IsRequired();
+                entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            });
 
 
+            modelBuilder.Entity<R_Family>(entity =>
+            {
+                entity.HasMany<R_FamilyUser>().WithOne().HasForeignKey(x => x.FamilyId).OnDelete(DeleteBehavior.Cascade);
+                entity.HasMany<R_FamilyCategory>().WithOne().HasForeignKey(x => x.FamilyId).OnDelete(DeleteBehavior.Cascade);
+                entity.Property(x => x.FileExtension).IsRequired();
+                entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+                entity.Property(x=>x.SaveUrl).IsRequired(false);
+                entity.Property(x=>x.BackUpUrl).IsRequired(false);
+                entity.Property(x=>x.MainPhotoUrl).IsRequired(false);
+            });
 
             modelBuilder.Entity<R_ProjectFolder>(entity =>
             {
-                entity.Property(x => x.RelativePath).IsRequired();
+                entity.Property(x => x.SaveUrl).IsRequired();
                 entity.Property(x => x.ProjectId).IsRequired();
                 entity.Property(x => x.FileExtension).IsRequired();
                 entity.Property(x => x.Name).IsRequired();
-            });
-
-            modelBuilder.Entity<R_Project>(entity =>
-            {
-                entity.HasMany<R_ProjectUser>().WithOne().HasForeignKey(x => x.ProjectId).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<R_Project>(entity =>
@@ -108,6 +123,15 @@ namespace Revit.EntityFrameworkCore
         private void InitialData(ModelBuilder modelBuilder)
         {
             var adminRoleId = 1;
+
+            modelBuilder.Entity<R_Category>().HasData(
+               new R_Category()
+               {
+                   Id=1,
+                   Name = "全部",
+                   CategoryType = CategoryType.Keyword,
+               });
+
 
             modelBuilder.Entity<R_ProjectUser>().HasData(
                new R_ProjectUser()

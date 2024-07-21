@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("64256d6c-f586-42e1-ad81-9a60e197fabe")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Revit.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7ac4d9213bad9d72dc3f17448d5c7a0a87c4287")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a81bc81934c09b1d4fa30c8b2266db0b8d89f18")]
 [assembly: System.Reflection.AssemblyProductAttribute("Revit.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Revit.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.EntityFrameworkCore",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Service", "Revit.Service\Revit.Service.csproj", "{B00B3341-A573-4B7F-8055-983322291D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit.Repository", "Revit.Repository\Revit.Repository.csproj", "{19878FF5-E4AB-48C8-B842-169808CA7004}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Repository", "Revit.Repository\Revit.Repository.csproj", "{19878FF5-E4AB-48C8-B842-169808CA7004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

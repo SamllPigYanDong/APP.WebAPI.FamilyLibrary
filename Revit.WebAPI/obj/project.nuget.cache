@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "R+StlgOjOHsQm8UY17DWkK9Z5nvxY7ZOKOWGvpJ/LSF1gMcW4wouwde96vCnzsD+KFNV7lZr9mIF/idFkFaBmw==",
+  "dgSpecHash": "M6VxaE+YZ+gnl8O3QQh3tIuw4czJCD+ZpQ8ULSKjEDubPg42TKuD9v1RQ+Q7RbgTvNLYOKJs4bxEdodvgpZcbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Zero\\Documents\\GitHub\\webapi-revitor\\Revit.WebAPI\\Revit.WebAPI.csproj",
   "expectedPackageFiles": [
@@ -58,6 +58,7 @@
     "C:\\Users\\Zero\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
     "C:\\Users\\Zero\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\Zero\\.nuget\\packages\\scrutor\\3.3.0\\scrutor.3.3.0.nupkg.sha512",
+    "C:\\Users\\Zero\\.nuget\\packages\\snowflake.core\\2.0.0\\snowflake.core.2.0.0.nupkg.sha512",
     "C:\\Users\\Zero\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.2\\sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\Zero\\.nuget\\packages\\sqlitepclraw.core\\2.1.2\\sqlitepclraw.core.2.1.2.nupkg.sha512",
     "C:\\Users\\Zero\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.2\\sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",
