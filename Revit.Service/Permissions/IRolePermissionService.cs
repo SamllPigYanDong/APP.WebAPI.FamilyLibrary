@@ -1,6 +1,5 @@
-﻿
-using Revit.Entity.Accounts;
-using Revit.Entity.Permissions;
+﻿using Revit.Shared.Entity.Accounts;
+using Revit.Shared.Entity.Permissions;
 
 namespace Revit.Service.Permissions
 {

@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Revit.Entity.Commons;
 using Revit.Entity.Permissions;
 using Revit.Service.Permissions;
-using Revit.WebAPI.Auth;
+using Revit.Shared.Entity.Commons;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Permissions;
 using Revit.WebAPI.UnitOfWork;
 
 namespace Revit.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [R_Authorize]
+    //[R_Authorize]
     public class PermissionsController : ControllerBase
     {
         private readonly IPermissionService _permissionRepositiory;
@@ -29,12 +29,10 @@ namespace Revit.WebAPI.Controllers
         /// <returns></returns>
         [HttpGet("all")]
         [UnitOfWork(IsTransactional = false)]
-        public IActionResult All()
+        public async Task<ActionResult<IPagedList<PermissionDto>>> GetPermissions()
         {
-            //获取所有权限
-            var permissionDtos = _permissionRepositiory.GetAll();
-
-            return Ok(permissionDtos);
+            var pageResults = _permissionRepositiory.GetAll();
+            return Ok(new ApiResponse(pageResults));
         }
 
         /// <summary>
@@ -45,7 +43,6 @@ namespace Revit.WebAPI.Controllers
         public IActionResult Post([FromBody] PermissionCreateDto permissionCreateDto)
         {
             var R_Permission = _mapper.Map<R_Permission>(permissionCreateDto);
-            //添加权限
             R_Permission = _permissionRepositiory.Add(R_Permission);
 
             if (R_Permission != null)
@@ -54,7 +51,7 @@ namespace Revit.WebAPI.Controllers
             }
             else
             {
-                var responseResult = new ResponseResultDto();
+                var responseResult = new ApiResponse();
                 responseResult.SetError("请菜单编码，是否重复！");
                 return BadRequest(responseResult);
             }
@@ -72,7 +69,7 @@ namespace Revit.WebAPI.Controllers
             var R_Permission = _permissionRepositiory.Get(id);
             if (R_Permission == null)
             {
-                var responseResult = new ResponseResultDto();
+                var responseResult = new ApiResponse();
                 responseResult.SetNotFound();
                 return BadRequest(responseResult);
             }
@@ -87,7 +84,7 @@ namespace Revit.WebAPI.Controllers
             }
             else
             {
-                var notFound = new ResponseResultDto();
+                var notFound = new ApiResponse();
                 notFound.SetError("请菜单编码，是否重复！");
                 return BadRequest(notFound);
             }
@@ -109,7 +106,7 @@ namespace Revit.WebAPI.Controllers
             }
             else
             {
-                var notFound = new ResponseResultDto();
+                var notFound = new ApiResponse();
                 notFound.SetNotFound();
                 return BadRequest(notFound);
             }

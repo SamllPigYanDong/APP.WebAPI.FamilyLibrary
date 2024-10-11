@@ -7,6 +7,7 @@ using Revit.Entity.Problem;
 using Revit.Entity.Project;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
+using Revit.Shared.Entity.Permissions;
 using System.Reflection.Emit;
 
 namespace Revit.EntityFrameworkCore
@@ -57,13 +58,14 @@ namespace Revit.EntityFrameworkCore
             modelBuilder.Entity<R_Problem>().ToTable("R_Problem");
             modelBuilder.Entity<R_Family>().ToTable("R_Family");
             modelBuilder.Entity<R_Category>().ToTable("R_Category");
+            modelBuilder.Entity<R_FamilyCategory>().ToTable("R_FamilyCategory");
         }
 
         private void SetProperties(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<R_Category>(entity =>
             {
-                entity.HasMany<R_FamilyCategory>().WithOne().HasForeignKey(x => x.FamilyId).OnDelete(DeleteBehavior.Cascade);
+                entity.HasMany<R_FamilyCategory>().WithOne().HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
                 entity.Property(x => x.CategoryType).IsRequired();
                 entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
             });

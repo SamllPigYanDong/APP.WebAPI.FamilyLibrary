@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 
-	<ItemGroup>
+	<ItemGroup Condition="">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.20" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20">
@@ -20,7 +20,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Revit.EntityFrameworkCore\Revit.EntityFrameworkCore.csproj" />
-	  <ProjectReference Include="..\Revit.Entity\Revit.Entity.csproj" />
 	</ItemGroup>
 
 

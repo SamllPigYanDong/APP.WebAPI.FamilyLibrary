@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Revit.Entity.Commons;
@@ -7,7 +6,8 @@ using Revit.Entity.Roles;
 using Revit.Entity.Users;
 using Revit.Service.Permissions;
 using Revit.Service.Roles;
-using Revit.WebAPI.Auth;
+using Revit.Shared.Entity.Commons;
+using Revit.Shared.Entity.Roles;
 using Revit.WebAPI.UnitOfWork;
 
 namespace Electric.API.Controllers
@@ -17,7 +17,7 @@ namespace Electric.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [R_Authorize]
+    //[R_Authorize]
     public class RolesController : ControllerBase
     {
         private readonly IRoleService _roleRepositiory;
@@ -48,9 +48,9 @@ namespace Electric.API.Controllers
         public IActionResult Get([FromQuery] RolePageRequestDto rolePageRequestDto)
         {
             //角色搜索
-            var rolePageResponseDto = _roleRepositiory.Query(rolePageRequestDto);
+            var result = _roleRepositiory.Query(rolePageRequestDto);
 
-            return Ok(rolePageResponseDto);
+            return Ok(new ApiResponse(result));
         }
 
         /// <summary>
@@ -59,11 +59,10 @@ namespace Electric.API.Controllers
         /// <returns></returns>
         [HttpGet("all")]
         [UnitOfWork(IsTransactional = false)]
-        public IActionResult GetAll()
+        public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
         {
-            var roles = _roleRepositiory.GetAll();
-
-            return Ok(roles);
+            var pageResults = _roleRepositiory.GetAll();
+            return Ok(new ApiResponse(pageResults));
         }
 
         /// <summary>
@@ -95,7 +94,7 @@ namespace Electric.API.Controllers
             //获取角色的权限列表
             var rolePermissionDtos = _rolePermissionRepositiory.GetRolePermissions(id);
 
-            return Ok(rolePermissionDtos);
+            return Ok(new ApiResponse(rolePermissionDtos));
         }
 
         /// <summary>
@@ -120,7 +119,7 @@ namespace Electric.API.Controllers
             }
             else
             {
-                var responseResult = new ResponseResultDto();
+                var responseResult = new ApiResponse();
                 responseResult.SetError("请检查角色名称，是否重复！");
                 return BadRequest(responseResult);
             }
@@ -138,7 +137,7 @@ namespace Electric.API.Controllers
             var R_Role = await _roleManager.FindByIdAsync(id.ToString());
             if (R_Role == null)
             {
-                var responseResult = new ResponseResultDto();
+                var responseResult = new ApiResponse();
                 responseResult.SetNotFound();
                 return BadRequest(responseResult);
             }
@@ -154,7 +153,7 @@ namespace Electric.API.Controllers
             }
             else
             {
-                var notFound = new ResponseResultDto();
+                var notFound = new ApiResponse();
                 notFound.SetError("请检查角色名称，是否重复！");
                 return BadRequest(notFound);
             }
@@ -167,7 +166,7 @@ namespace Electric.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var responseResult = new ResponseResultDto();
+            var responseResult = new ApiResponse();
 
             var R_Role = await _roleManager.FindByIdAsync(id.ToString());
             //初始化数据，不可删除

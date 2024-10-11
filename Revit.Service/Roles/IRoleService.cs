@@ -1,4 +1,6 @@
-﻿using Revit.Entity.Roles;
+﻿using Revit.Entity.Commons;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Roles;
 
 namespace Revit.Service.Roles
 {
@@ -9,13 +11,13 @@ namespace Revit.Service.Roles
         /// </summary>
         /// <param name="rolePageRequestDto"></param>
         /// <returns></returns>
-        List<RoleDto> GetAll();
+        IEnumerable<RoleDto> GetAll();
 
         /// <summary>
         /// 搜索角色
         /// </summary>
         /// <param name="rolePageRequestDto"></param>
         /// <returns></returns>
-        RolePageResponseDto Query(RolePageRequestDto rolePageRequestDto);
+        IPagedList<RoleDto> Query(RolePageRequestDto rolePageRequestDto);
     }
 }

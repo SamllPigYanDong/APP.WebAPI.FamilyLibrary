@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic;
-using Revit.Entity.Accounts;
-using Revit.Entity.Auths;
-using Revit.Entity.Commons;
 using Revit.Entity.Users;
+using Revit.Shared.Entity.Auths;
+using Revit.Shared.Entity.Commons;
 using Revit.WebAPI.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -57,9 +55,9 @@ namespace Revit.WebAPI.Controllers
                 var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
 
                 var value = this.Request.HttpContext.User.Identity;
-                return Ok(new ResponseResultDto(token) );
+                return Ok(new ApiResponse(token) );
             }
-            return BadRequest(new ResponseResultDto().SetError("账号不存在或密码错误"));
+            return BadRequest(new ApiResponse().SetError("账号不存在或密码错误"));
         }
     }
 }

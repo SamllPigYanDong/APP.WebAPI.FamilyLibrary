@@ -7,6 +7,12 @@ using Revit.Service.Commons;
 using Revit.Repository;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
+using Revit.Entity.Commons;
+using Revit.Entity.Permissions;
+using Revit.Service.Permissions;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Roles;
+using Revit.Shared.Entity.Users;
 
 namespace Revit.Service.Roles
 {
@@ -17,16 +23,18 @@ namespace Revit.Service.Roles
     {
         private readonly IBaseRepository<R_Role> _roleRepository;
         private readonly IBaseRepository<R_User> _userRepository;
-
+        private readonly IBaseRepository<R_RolePermission> _rolePermissionRepository;
         private readonly IMapper _mapper;
 
         public RoleService(IBaseRepository<R_Role> roleRepository
             , IBaseRepository<R_User> userRepository
+            , IBaseRepository<R_RolePermission> rolePermissionRepository
             , IMapper mapper):base(mapper)
         {
             _mapper = mapper;
             _roleRepository = roleRepository;
             _userRepository = userRepository;
+            _rolePermissionRepository = rolePermissionRepository;
         }
 
         /// <summary>
@@ -34,37 +42,27 @@ namespace Revit.Service.Roles
         /// </summary>
         /// <param name="rolePageRequestDto"></param>
         /// <returns></returns>
-        public RolePageResponseDto Query(RolePageRequestDto rolePageRequestDto)
+        public IPagedList<RoleDto> Query(RolePageRequestDto rolePageRequestDto)
         {
-            var result = new RolePageResponseDto();
             var query = _roleRepository.GetQueryable();
             if (!string.IsNullOrEmpty(rolePageRequestDto.Name))
             {
                 query = query.Where(x => x.Name.Equals(rolePageRequestDto.Name));
             }
-            rolePageRequestDto.PageIndex = rolePageRequestDto.PageIndex < 1 ? 1 : rolePageRequestDto.PageIndex;
 
-            //获取总数、角色列表
-            var count = query.Count();
-            var skip = (rolePageRequestDto.PageIndex - 1) * rolePageRequestDto.PageSize;
-            var list = _roleRepository.GetPagedList(skip, rolePageRequestDto.PageSize, query);
-            result.PageIndex = rolePageRequestDto.PageIndex;
-            result.PageSize = rolePageRequestDto.PageSize;
-            result.TotalCount = count;
+            IPagedList<RoleDto> result = new PagedList<R_Role, RoleDto>(query, (list) => {
+                var roleDtos = new List<RoleDto>();
+                foreach (var item in list)
+                {
+                    var roleDto = _mapper.Map<RoleDto>(item);
 
-            //转换实体
-            var roleDtos = new List<RoleDto>();
-            foreach (var item in list)
-            {
-                var roleDto = _mapper.Map<RoleDto>(item);
-
-                //创建者
-                var creator = _userRepository.Get(roleDto.CreatorId);
-                roleDto.Creator = _mapper.Map<UserDto>(creator);
-                roleDtos.Add(roleDto);
-            }
-            result.Roles = roleDtos;
-
+                    //创建者
+                    var creator = _userRepository.Get(roleDto.CreatorId);
+                    roleDto.Creator = _mapper.Map<UserDto>(creator);
+                    roleDtos.Add(roleDto);
+                }
+                return roleDtos;
+            }, rolePageRequestDto.PageIndex, rolePageRequestDto.PageSize, 1);
 
             return result;
         }
@@ -74,7 +72,7 @@ namespace Revit.Service.Roles
         /// </summary>
         /// <param name="rolePageRequestDto"></param>
         /// <returns></returns>
-        public List<RoleDto> GetAll()
+        public IEnumerable<RoleDto> GetAll()
         {
             var list = _roleRepository.GetAll();
 

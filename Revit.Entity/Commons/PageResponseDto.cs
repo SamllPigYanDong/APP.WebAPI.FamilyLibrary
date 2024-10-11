@@ -28,6 +28,5 @@ namespace Revit.Entity.Commons
         public int TotalCount { get; set; }
 
         
-        public IList Items { get; set; }
     }
 }

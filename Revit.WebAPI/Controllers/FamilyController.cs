@@ -1,18 +1,9 @@
-using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System;
-using System.Linq;
-using System.Net.Http.Json;
-using Revit.Entity.Commons;
-using Revit.Service.Permissions;
 using Revit.Service.Families;
 using Revit.Entity.Family;
-using Revit.Entity.Project;
-using Revit.Entity.Entity.Dtos.Family;
-using System.Net.WebSockets;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Commons;
+using Revit.Shared.Entity.Family;
 
 namespace Revit.WebAPI.Controllers
 {
@@ -23,7 +14,7 @@ namespace Revit.WebAPI.Controllers
         private readonly IFamilyService familyService;
         private readonly IFamiyCategoryService famiyCategoryService;
 
-        public FamilyController(IFamilyService familyService, IFamiyCategoryService  famiyCategoryService)
+        public FamilyController(IFamilyService familyService)
         {
             this.familyService = familyService;
             this.famiyCategoryService = famiyCategoryService;
@@ -42,83 +33,58 @@ namespace Revit.WebAPI.Controllers
         //    return Ok(familyDto);
         //}
 
-
-
         [HttpGet]
-        public async Task<ActionResult<ResponseResultDto>> GetAsync(
-            [FromQuery] PageRequestDto parameters)
+        public async Task<ActionResult<ApiResponse<PagedList<FamilyDto>>>> GetAsync(
+            [FromQuery] FamilyPageRequestDto parameters)
         {
             var pageList = await familyService.GetListAsync(parameters);
-            //var paginationMetadata = new
-            //{
-            //    totalCount = pageList.TotalCount,
-            //    pageSize = pageList.PageSize,
-            //    currentPage = pageList.PageIndex,
-            //    totalPages = pageList.TotalCount,
-            //    //previousePageLink=pageList.HasPrevious?Url.Link(nameof(GetFamiliesAsync),new
-            //    //{
-            //    //    pageNumber=pageList.CurrentPage-1,
-            //    //    pigeSize=pageList.PageSize,
-            //    //}):null,
-            //    //nextPageLink=pageList.HasNext?Url.Link(nameof(GetFamiliesAsync),new
-            //    //{
-            //    //    pageNumber=pageList.CurrentPage+1,
-            //    //    pigeSize=pageList.PageSize,
-            //    //}):null
-            //};
-            //Response.Headers.Add("X-Pagination", new JsonResult(paginationMetadata).ToString());
             if (pageList != null)
             {
-                return Ok(new ResponseResultDto(pageList));
+                return Ok(new ApiResponse(pageList));
             }
-            else { return NotFound(); }
+            else { return NotFound(null); }
         }
 
-
-        [HttpGet("userId")]
-        //[ServiceFilter(typeof(CheckUserExistFilterAttribute))]
-        public async Task<ActionResult<ResponseResultDto>> GetFamiliesAsync(long userId)
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<ApiResponse>> GetFamiliesAsync(long userId)
         {
             var families = await familyService.GetFamiliesByUser(userId);
             if (families.Any())
             {
-                return Ok(new ResponseResultDto(families));
+                return Ok(new ApiResponse(families));
             }
             else { return NotFound(); }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ResponseResultDto>> UploadFamily( [FromForm] FamilyUploadDto filesDto)
+        [HttpPost("User/{creatorId}")]
+        public async Task<ActionResult<ApiResponse<IEnumerable<FamilyDto>>>> UploadFamily( [FromRoute] long creatorId)
         {
-            IEnumerable<FamilyDto> families = await familyService.UploadFiles(filesDto);
+            IEnumerable<FamilyDto> families = await familyService.UploadFiles(creatorId, new FamilyUploadDto() {  Files=Request.Form.Files});
             if (families.Any())
             {
-                return Ok(new ResponseResultDto(families));
+                return Ok(new ApiResponse(families));
             }
             else { return NotFound(); }
         }
 
-
         [HttpGet("{familyId}")]
-        public async Task<ActionResult<ResponseResultDto>> DownloadFamily(long familyId)
+        public async Task<ActionResult<ApiResponse<byte[]>>> DownloadFamily(long familyId)
         {
             var stream  = await familyService.DownloadFamily(familyId);
             if (stream != null)
             {
-                return Ok(new ResponseResultDto(stream));
+                return Ok(new ApiResponse(stream));
             }
             else { return NotFound(); }
         }
 
-
         [HttpPut("{familyId}")]
-        public async Task<ActionResult<ResponseResultDto>> AuditingFamily(long familyId,FamilyPutDto  familyPutDto)
+        public async Task<ActionResult<ApiResponse<FamilyDto>>> AuditingFamily(long familyId,FamilyPutDto  familyPutDto)
         {
             var result = await familyService.AuditingFamily(familyId, familyPutDto);
-            var count = await famiyCategoryService.SaveFamilyCategies(familyId, familyPutDto.CategoriesIds);
-            if (result != null&&count==familyPutDto.CategoriesIds.Count)
+            if (result != null)
             {
-                return Ok(new ResponseResultDto(result));
+                return Ok(new ApiResponse(result));
             }
             else { return NotFound(); }
         }

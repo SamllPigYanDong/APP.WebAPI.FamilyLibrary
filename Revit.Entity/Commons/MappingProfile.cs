@@ -1,11 +1,16 @@
 ﻿using AutoMapper;
-using Revit.Entity.Accounts;
-using Revit.Entity.Entity.Dtos.Family;
 using Revit.Entity.Family;
 using Revit.Entity.Permissions;
 using Revit.Entity.Project;
 using Revit.Entity.Roles;
 using Revit.Entity.Users;
+using Revit.Shared.Entity.Accounts;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Family;
+using Revit.Shared.Entity.Permissions;
+using Revit.Shared.Entity.Project;
+using Revit.Shared.Entity.Roles;
+using Revit.Shared.Entity.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +46,6 @@ namespace Revit.Entity.Commons
 
             CreateMap<R_ProjectFolder, ProjectFolderDto>();
 
-
-            //page对应
-            CreateMap<PageRequestDto, PageResponseDto>()
-                .ForMember(x => x.TotalCount, opt => opt.MapFrom(x => x.PageSize * x.PageIndex))
-                .ForMember(x => x.PageIndex, opt => opt.MapFrom(x => x.PageIndex))
-                .ForMember(x => x.PageSize, opt => opt.MapFrom(x => x.PageSize));
             //family 与dto对应
             CreateMap<R_Family, FamilyDto>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => x.Id))

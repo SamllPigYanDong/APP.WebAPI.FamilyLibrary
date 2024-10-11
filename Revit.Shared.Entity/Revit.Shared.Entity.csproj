@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PlatformTarget>x64</PlatformTarget>
+		<TargetFrameworks>netstandard2;net472;</TargetFrameworks>
+	</PropertyGroup>
+
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net472'">
+		<!--<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />-->
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2'">
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Commons\R_Entity.cs" />
+	  <Compile Remove="Commons\R_File.cs" />
+	  <Compile Remove="Family\R_Category.cs" />
+	  <Compile Remove="Family\R_Family.cs" />
+	  <Compile Remove="Family\R_FamilyCategory.cs" />
+	  <Compile Remove="Family\R_FamilyUser.cs" />
+	  <Compile Remove="Roles\R_Role.cs" />
+	  <Compile Remove="Roles\R_RoleClaim.cs" />
+	  <Compile Remove="Roles\R_RolePermission.cs" />
+	  <Compile Remove="Users\R_User.cs" />
+	  <Compile Remove="Users\R_UserClaim.cs" />
+	  <Compile Remove="Users\R_UserLogin.cs" />
+	  <Compile Remove="Users\R_UserRole.cs" />
+	  <Compile Remove="Users\R_UserToken.cs" />
+	</ItemGroup>
+</Project>

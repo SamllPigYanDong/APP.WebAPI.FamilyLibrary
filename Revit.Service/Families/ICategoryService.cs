@@ -1,4 +1,4 @@
-﻿using Revit.Entity.Entity.Dtos.Family;
+﻿using Revit.Shared.Entity.Family;
 
 namespace Revit.Service.Families
 {
@@ -6,5 +6,6 @@ namespace Revit.Service.Families
     {
         Task<CategoryDto> AddCategory( CategoryCreateDto createMessages);
         Task<IEnumerable<CategoryDto>> GetCategories();
+        Task<int> DeleteCategory(long categoryId);
     }
 }

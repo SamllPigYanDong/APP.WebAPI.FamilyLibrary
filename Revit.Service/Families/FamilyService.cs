@@ -12,6 +12,9 @@ using Revit.Repository;
 using Revit.Service.Commons;
 using Revit.Service.Extension;
 using Revit.Service.Permissions;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Family;
+using Revit.Shared.Entity.Users;
 using Snowflake.Core;
 using System.Collections;
 using System.IO;
@@ -25,22 +28,21 @@ namespace Revit.Service.Families
     {
         private readonly IBaseRepository<R_Family> _familiesRepository;
         private readonly IBaseRepository<R_FamilyCategory> _familyCategoryRepository;
+        private readonly IBaseRepository<R_User> userRepository;
         private readonly IStorageClient _localStorage;
         private readonly IMapper _mapper;
         private readonly IdWorker _idWorker;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
 
-        public FamilyService(IBaseRepository<R_Family> familiesRepository,IBaseRepository<R_FamilyCategory> familyCategoryRepository, IMapper mapper, IdWorker idWorker,
-        IEnumerable<IStorageClient> storageClients, IHttpContextAccessor httpContextAccessor
-            , UserManager<R_User> userManager) : base(mapper)
+        public FamilyService(IBaseRepository<R_Family> familiesRepository, IBaseRepository<R_FamilyCategory> familyCategoryRepository, IBaseRepository<R_User> userRepository,
+            IMapper mapper, IEnumerable<IStorageClient> storageClients, IdWorker idWorker) : base(mapper)
         {
             this._mapper = mapper;
             this._idWorker = idWorker;
-            this._httpContextAccessor = httpContextAccessor;
-            this._userManager = userManager;
             this._familiesRepository = familiesRepository;
             this._familyCategoryRepository = familyCategoryRepository;
+            this.userRepository = userRepository;
             this._localStorage = storageClients.First(c => c.StorageType == StorageType.Public);
         }
 
@@ -54,23 +56,33 @@ namespace Revit.Service.Families
             return results;
         }
 
-        public async Task<PagedList<FamilyDto>> GetListAsync(PageRequestDto parameters)
+        public async Task<IPagedList<FamilyDto>> GetListAsync(FamilyPageRequestDto parameters)
         {
-            PagedList<FamilyDto> pageList = new PagedList<FamilyDto>() { PageIndex = parameters.PageIndex, PageSize = parameters.PageSize };
-            var query = _familiesRepository.GetList(x => string.IsNullOrWhiteSpace(parameters.SearchMessage) || x.Name.Contains(parameters.SearchMessage)).AsQueryable();
-            var result = _familiesRepository.GetPagedList(parameters.PageIndex * parameters.PageSize, parameters.PageSize, query);
-            if (result.Any())
+
+            var query = _familiesRepository.GetList(x => (string.IsNullOrWhiteSpace(parameters.SearchMessage) || x.Name.Contains(parameters.SearchMessage))&&x.FamilyAuditStatus == parameters.AuditStatus)
+                .Where(item => parameters.CategoriesIds==null||_familyCategoryRepository.GetList(x => x.FamilyId == item.Id).Select(x => x.CategoryId).Any(id=>parameters.CategoriesIds.Contains(id))).AsQueryable();
+
+            
+            IPagedList<FamilyDto> pageList = new PagedList<R_Family, FamilyDto>(query, (list) =>
             {
-                var dtos = _mapper.Map<IEnumerable<FamilyDto>>(result);
+                var dtos = _mapper.Map<IEnumerable<FamilyDto>>(list);
                 foreach (var item in dtos)
                 {
                     if (item.MainPhotoUrl == null)
                     {
                         continue;
                     }
-                    var user = await R_User.GetCurrentUser(_httpContextAccessor, _userManager);
-                    item.Creator = _mapper.Map<UserDto>(user);
-                    item.CategoriesIds = _familyCategoryRepository.GetList(x => x.FamilyId.Equals(item.Id)).Select(x=>x.CategoryId);
+                    //item.CategoriesIds = _familyCategoryRepository.GetList(x => x.FamilyId == item.Id).Select(x => x.CategoryId);
+                    item.Creator = _mapper.Map<UserDto>(userRepository.Get(item.CreatorId));
+                }
+                return dtos;
+
+            }, parameters.PageIndex, parameters.PageSize, 1);
+            if (pageList.Items!=null)
+            {
+                //异步读取图片
+                foreach (var item in pageList.Items)
+                {
                     if (File.Exists(item.MainPhotoUrl.LocalPath))
                     {
                         using (FileStream fs = new FileStream(item.MainPhotoUrl.LocalPath, FileMode.Open, FileAccess.Read))
@@ -81,13 +93,12 @@ namespace Revit.Service.Families
                         }
                     }
                 }
-                pageList.Items = dtos.ToList();
             }
             return pageList;
         }
 
         //将保存代码替换成storege的详细实现
-        public async Task<IEnumerable<FamilyDto>> UploadFiles(FamilyUploadDto filesDto)
+        public async Task<IEnumerable<FamilyDto>> UploadFiles(long creatorId, FamilyUploadDto filesDto)
         {
             var results = new List<FamilyDto>();
             var familyFile = filesDto.Files.FirstOrDefault();
@@ -103,7 +114,7 @@ namespace Revit.Service.Families
 
                 if (File.Exists(imageUrl.LocalPath) && File.Exists(familyUrl.LocalPath))
                 {
-                    var r_Family = R_Family.Create(_idWorker.NextId(), sameFileKey, familyFile.Length, familyFile.FileName, HashHelper.ComputeSha256Hash(familyFile.OpenReadStream()), familyUrl, imageUrl);
+                    var r_Family = R_Family.Create(creatorId, _idWorker.NextId(), sameFileKey, familyFile.Length, familyFile.FileName, HashHelper.ComputeSha256Hash(familyFile.OpenReadStream()), familyUrl, imageUrl);
                     var result = _familiesRepository.Add(r_Family);
                     if (result != null)
                     {
@@ -141,17 +152,27 @@ namespace Revit.Service.Families
 
         public async Task<FamilyDto> AuditingFamily(long familyId, FamilyPutDto familyPutDto)
         {
-            if (familyPutDto==null||!familyPutDto.CategoriesIds.Any())
+            if (familyPutDto == null || !familyPutDto.CategoriesIds.Any())
             {
                 throw new Exception("this put data is not vaild");
             }
-            var file = _familiesRepository.Get(familyId);
-            if (file == null) throw new Exception("this file is not exist");
-            var rFamily = _mapper.Map(familyPutDto, file);
+            var familyCategories = familyPutDto.CategoriesIds.Select<long, R_FamilyCategory>(x => new R_FamilyCategory() { FamilyId = familyId, CategoryId = x, Id = _idWorker.NextId() }).ToList();
+            var family = _familiesRepository.Get(familyId);
+            if (family != null)
+            {
+                //删除原有的标签
+                var toDeleteCategories = _familyCategoryRepository.GetAll().Where(x => x.FamilyId == familyId).ToList();
+                foreach (var familyCategory in toDeleteCategories)
+                {
+                    _familyCategoryRepository.Delete(familyCategory);
+                }
+                //改为现有的标签
+                var familyCategoriesCount = _familyCategoryRepository.AddRange(familyCategories);
+            }
+            if (family == null) throw new Exception("this file is not exist");
+            var rFamily = _mapper.Map(familyPutDto, family);
             var familyCount = _familiesRepository.Update(rFamily);
-            var familyCategories = familyPutDto.CategoriesIds.Select<long, R_FamilyCategory>(x => new R_FamilyCategory() { FamilyId = familyId, CategoryId = x }).ToList();
-            var familyCategoriesCount = _familyCategoryRepository.AddRange(familyCategories);
-            if (familyCount < 0|| familyCategoriesCount!= familyCategories.Count) { throw new Exception("this update for famiy is not success"); }
+            if (familyCount < 0) { throw new Exception("this update for famiy is not success"); }
             var familyDto = _mapper.Map<FamilyDto>(rFamily);
             return familyDto;
         }

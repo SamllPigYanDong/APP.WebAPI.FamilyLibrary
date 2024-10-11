@@ -1,12 +1,19 @@
 ﻿using AutoMapper;
+using Revit.Entity.Commons;
 using Revit.Entity.Permissions;
+using Revit.Entity.Roles;
 using Revit.Entity.Users;
 using Revit.Repository;
 using Revit.Service.Commons;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Permissions;
+using Revit.Shared.Entity.Users;
+using System.Collections.Generic;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Revit.Service.Permissions
 {
-    public class PermissionService : BaseService,IPermissionService
+    public class PermissionService : BaseService, IPermissionService
     {
         private readonly IBaseRepository<R_Permission> _familiesRepository;
         private readonly IBaseRepository<R_User> _userRepository;
@@ -24,12 +31,13 @@ namespace Revit.Service.Permissions
         /// 获取权限列表
         /// </summary>
         /// <returns></returns>
-        public List<PermissionDto> GetAll()
+        public  List<PermissionDto> GetAll()
         {
-            var permissionDtos = new List<PermissionDto>();
-            var list = _familiesRepository.GetAll();
+           
+            var query = _familiesRepository.GetAll();
 
-            foreach (var item in list)
+            var permissionDtos = new List<PermissionDto>();
+            foreach (var item in query)
             {
                 var permissionDto = _mapper.Map<PermissionDto>(item);
 
@@ -38,7 +46,6 @@ namespace Revit.Service.Permissions
                 permissionDto.Creator = _mapper.Map<UserDto>(creator);
                 permissionDtos.Add(permissionDto);
             }
-
             return permissionDtos;
         }
 
@@ -107,5 +114,7 @@ namespace Revit.Service.Permissions
 
             return true;
         }
+
+       
     }
 }

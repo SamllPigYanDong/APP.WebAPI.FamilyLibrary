@@ -11,7 +11,8 @@ using Revit.Service.Permissions;
 using Revit.Service.Families;
 using Revit.Entity.Family;
 using Revit.Entity.Project;
-using Revit.Entity.Entity.Dtos.Family;
+using Revit.Shared.Entity.Family;
+using Revit.Shared.Entity.Commons;
 
 namespace Revit.WebAPI.Controllers
 {
@@ -21,7 +22,7 @@ namespace Revit.WebAPI.Controllers
     {
         private readonly ICategoryService categoryService;
 
-        public CategoryController( ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
         }
@@ -32,7 +33,7 @@ namespace Revit.WebAPI.Controllers
             var result = await categoryService.GetCategories();
             if (result != null)
             {
-                return Ok(new ResponseResultDto(result));
+                return Ok(new ApiResponse(result));
             }
             else { return NotFound(); }
         }
@@ -40,13 +41,25 @@ namespace Revit.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<CategoryDto>> AddCategory(CategoryCreateDto createMessages)
         {
-            var result = await categoryService.AddCategory( createMessages);
+            var result = await categoryService.AddCategory(createMessages);
             if (result != null)
             {
-                return Ok(new ResponseResultDto(result));
+                return Ok(new ApiResponse(result));
             }
             else { return NotFound(); }
         }
+
+        [HttpDelete("{categoryId}")]
+        public async Task<ActionResult<CategoryDto>> DeleteCategory(long categoryId)
+        {
+            var result = await categoryService.DeleteCategory(categoryId);
+            if (result > 0)
+            {
+                return Ok(new ApiResponse(result));
+            }
+            else { return NotFound(); }
+        }
+
 
     }
 }

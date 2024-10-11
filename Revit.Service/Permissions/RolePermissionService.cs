@@ -3,8 +3,9 @@ using Revit.Repository;
 using Revit.Service.Commons;
 using Revit.Entity.Permissions;
 using Revit.Entity.Roles;
-using Revit.Entity.Accounts;
 using Revit.Entity.Commons;
+using Revit.Shared.Entity.Accounts;
+using Revit.Shared.Entity.Permissions;
 
 
 namespace Revit.Service.Permissions

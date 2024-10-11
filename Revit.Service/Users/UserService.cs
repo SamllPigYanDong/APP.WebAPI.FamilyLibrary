@@ -12,6 +12,10 @@ using Revit.Entity.Users;
 using Revit.Service.Commons;
 using Revit.Repository;
 using Revit.Entity.Roles;
+using Revit.Entity.Commons;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Users;
+using Revit.Shared.Entity.Roles;
 
 namespace Revit.Service.Users
 {
@@ -41,45 +45,40 @@ namespace Revit.Service.Users
         /// </summary>
         /// <param name="userPageRequestDto"></param>
         /// <returns></returns>
-        public UserPageResponseDto Query(UserPageRequestDto userPageRequestDto)
+        public IPagedList<UserDto> Query(UserPageRequestDto userPageRequestDto)
         {
-            var result = new UserPageResponseDto();
             //过滤
             var query = _userRepository.GetQueryable();
             if (!string.IsNullOrEmpty(userPageRequestDto.UserName))
             {
                 query = query.Where(x => x.UserName.Equals(userPageRequestDto.UserName));
             }
-            userPageRequestDto.PageIndex = userPageRequestDto.PageIndex < 1 ? 1 : userPageRequestDto.PageIndex;
-
-            //获取总数、用户列表
-            var count = query.Count();
-            var skip = (userPageRequestDto.PageIndex - 1) * userPageRequestDto.PageSize;
-            var list = _userRepository.GetPagedList(skip, userPageRequestDto.PageSize, query);
-            result.PageIndex = userPageRequestDto.PageIndex;
-            result.PageSize = userPageRequestDto.PageSize;
-            result.TotalCount = count;
 
             //转换实体
-            var userDtos = new List<UserDto>();
-            foreach (var item in list)
-            {
-                var userDto = _mapper.Map<UserDto>(item);
+           
 
-                //创建者
-                var creator = _userRepository.Get(userDto.CreatorId);
-                userDto.Creator = _mapper.Map<UserDto>(creator);
+            var result = new PagedList<R_User,UserDto>(query, (list)=> {
+                var userDtos = new List<UserDto>();
+                foreach (var item in list)
+                {
+                    var userDto = _mapper.Map<UserDto>(item);
 
-                //获取用户关联的角色列表
-                var roleList = (from r in _roleRepository.GetQueryable()
-                                join ur in _userRoleRepository.GetQueryable() on r.Id equals ur.RoleId
-                                where ur.UserId == item.Id
-                                select r).ToList();
-                userDto.Roles = _mapper.Map<List<RoleDto>>(roleList);
+                    //创建者
+                    var creator = _userRepository.Get(userDto.CreatorId);
+                    userDto.Creator = _mapper.Map<UserDto>(creator);
 
-                userDtos.Add(userDto);
-            }
-            result.Users = userDtos;
+                    //获取用户关联的角色列表
+                    var roleList = (from r in _roleRepository.GetQueryable()
+                                    join ur in _userRoleRepository.GetQueryable() on r.Id equals ur.RoleId
+                                    where ur.UserId == item.Id
+                                    select r).ToList();
+                    userDto.Roles = _mapper.Map<List<RoleDto>>(roleList);
+
+                    userDtos.Add(userDto);
+                }
+                return userDtos;
+            }, userPageRequestDto.PageIndex, userPageRequestDto.PageSize, 1);
+
 
             return result;
         }

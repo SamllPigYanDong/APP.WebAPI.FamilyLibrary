@@ -4,18 +4,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.VisualBasic;
-using Revit.Entity.Commons;
 using Revit.Entity.Users;
 using Revit.Service.UnitOfWork;
 using Revit.Service.Users;
+using Revit.Shared.Entity.Commons;
+using Revit.Shared.Entity.Users;
 using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
+using System.Diagnostics;
 
 namespace Revit.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [R_Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userRepository;
@@ -44,12 +45,12 @@ namespace Revit.WebAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [UnitOfWork(IsTransactional = false)]
-        public IActionResult Get([FromQuery] UserPageRequestDto userPageRequestDto)
+        public async Task<ActionResult<ApiResponse>> GetUsers([FromQuery] UserPageRequestDto userPageRequestDto)
         {
             //根据用户名搜索，分页返回用户列表
 
-            var UserPageResponseDto = _userRepository.Query(userPageRequestDto);
-            return Ok(UserPageResponseDto);
+            var result = _userRepository.Query(userPageRequestDto);
+            return Ok(new ApiResponse(result));
         }
 
 
@@ -64,10 +65,10 @@ namespace Revit.WebAPI.Controllers
             var user = _mapper.Map<R_User>(userCreateDto);
 
             //获取登录的用户
-            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            var creatorUser = await _userManager.FindByNameAsync(userName);
-            //更新字段
-            user.CreatorId = creatorUser.Id;
+            //var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            //var creatorUser = await _userManager.FindByNameAsync(userName);
+            ////更新字段
+            //user.CreatorId = creatorUser.Id;
             user.EmailConfirmed = true;
             user.NormalizedUserName = user.UserName;
             user.SecurityStamp = DateTime.Now.Ticks.ToString();
@@ -78,19 +79,20 @@ namespace Revit.WebAPI.Controllers
 
             //添加用户
             var result = await _userManager.CreateAsync(user);
+            var dto=_mapper.Map<UserDto>(user);
+
+
             if (result.Succeeded)
             {
-                return Created(string.Empty, user);
+                return Created(string.Empty, new ApiResponse(dto) );
             }
             else
             {
-                var responseResult = new ResponseResultDto();
+                var responseResult = new ApiResponse();
                 responseResult.SetError("请检查用户账号，是否重复！");
                 return BadRequest(responseResult);
             }
         }
-
-
 
         /// <summary>
         /// 修改用户
@@ -103,7 +105,7 @@ namespace Revit.WebAPI.Controllers
         {
 
             //获取用户
-            var responseResult = new ResponseResultDto();
+            var responseResult = new ApiResponse();
             var rUser = await _userManager.FindByIdAsync(id.ToString());
             if (rUser == null)
             {
@@ -160,7 +162,7 @@ namespace Revit.WebAPI.Controllers
         [HttpDelete("id")]
         public async Task<IActionResult> Delete(long id)
         {
-            var responseResult = new ResponseResultDto();
+            var responseResult = new ApiResponse();
             var rUser = await _userManager.FindByIdAsync(id.ToString());
 
             if (id == 1)

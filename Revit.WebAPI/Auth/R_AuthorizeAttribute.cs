@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Revit.Entity.Accounts;
 using Revit.Service.Permissions;
 using Revit.Service.Users;
+using Revit.Shared.Entity.Accounts;
+using Revit.Shared.Entity.Commons.Page;
 using System.Text.RegularExpressions;
 
 namespace Revit.WebAPI.Auth

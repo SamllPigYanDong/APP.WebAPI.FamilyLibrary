@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.X509;
 using Revit.Entity.Commons;
-using Revit.Entity.Entity.Dtos.Family;
 using Revit.Entity.Family;
 using Revit.Entity.Permissions;
 using Revit.Entity.Project;
@@ -13,6 +12,7 @@ using Revit.Repository;
 using Revit.Service.Commons;
 using Revit.Service.Extension;
 using Revit.Service.Permissions;
+using Revit.Shared.Entity.Family;
 using Snowflake.Core;
 using System.Collections;
 using System.IO;
@@ -48,6 +48,15 @@ namespace Revit.Service.Families
             var results = _categoriesRepository.GetList(x => true).ToList();
             var dtos = _mapper.Map<List<CategoryDto>>(results);
             return dtos;
+        }
+
+
+        public async Task<int> DeleteCategory(long categoryId)
+        {
+            var item = _categoriesRepository.Get(categoryId);
+            if (item == null) throw new ArgumentNullException("this categoryId is represent nothing");
+            var count = _categoriesRepository.Delete(item);
+            return count;
         }
     }
 }

@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.WebAPI", "Revit.WebAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.DbMigrator", "Revit.DbMigrator\Revit.DbMigrator.csproj", "{7901EE9E-52A0-453C-AA3C-B62B4CCB13AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Entity", "Revit.Entity\Revit.Entity.csproj", "{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.EntityFrameworkCore", "Revit.EntityFrameworkCore\Revit.EntityFrameworkCore.csproj", "{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Service", "Revit.Service\Revit.Service.csproj", "{B00B3341-A573-4B7F-8055-983322291D77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Repository", "Revit.Repository\Revit.Repository.csproj", "{19878FF5-E4AB-48C8-B842-169808CA7004}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Entity", "Revit.Entity\Revit.Entity.csproj", "{327FDA0C-75EF-4D8F-91DE-5AF136712093}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revit.Shared.Entity", "Revit.Shared.Entity\Revit.Shared.Entity.csproj", "{BF5000A2-ADB9-4674-B951-F6C7352BE443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +31,6 @@ Global
 		{7901EE9E-52A0-453C-AA3C-B62B4CCB13AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7901EE9E-52A0-453C-AA3C-B62B4CCB13AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7901EE9E-52A0-453C-AA3C-B62B4CCB13AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7453F2D9-0F9B-4B6D-B77E-0954C72871DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EDC2043-5A7D-4CC2-8797-951A96DA44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +43,14 @@ Global
 		{19878FF5-E4AB-48C8-B842-169808CA7004}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19878FF5-E4AB-48C8-B842-169808CA7004}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19878FF5-E4AB-48C8-B842-169808CA7004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{327FDA0C-75EF-4D8F-91DE-5AF136712093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{327FDA0C-75EF-4D8F-91DE-5AF136712093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{327FDA0C-75EF-4D8F-91DE-5AF136712093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{327FDA0C-75EF-4D8F-91DE-5AF136712093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF5000A2-ADB9-4674-B951-F6C7352BE443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF5000A2-ADB9-4674-B951-F6C7352BE443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF5000A2-ADB9-4674-B951-F6C7352BE443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF5000A2-ADB9-4674-B951-F6C7352BE443}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

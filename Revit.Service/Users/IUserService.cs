@@ -1,6 +1,8 @@
 ﻿
-using Revit.Entity.Users;
+using Revit.Entity.Commons;
 
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Users;
 namespace Revit.Service.Users
 {
     public interface IUserService
@@ -23,6 +25,6 @@ namespace Revit.Service.Users
         /// </summary>
         /// <param name="userPageRequestDto"></param>
         /// <returns></returns>
-        UserPageResponseDto Query(UserPageRequestDto userPageRequestDto);
+        IPagedList<UserDto> Query(UserPageRequestDto userPageRequestDto);
     }
 }

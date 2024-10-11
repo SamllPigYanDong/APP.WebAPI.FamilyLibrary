@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Revit.Entity.Accounts;
 using Revit.Entity.Commons;
 using Revit.Entity.Users;
 using Revit.Service;
@@ -11,6 +10,8 @@ using Revit.WebAPI.Auth;
 using Revit.WebAPI.UnitOfWork;
 using AutoMapper;
 using Revit.Service.Users;
+using Revit.Shared.Entity.Accounts;
+using Revit.Shared.Entity.Commons;
 
 namespace Revit.WebAPI.Controllers
 {
@@ -63,7 +64,7 @@ namespace Revit.WebAPI.Controllers
             var accountDto=  this._mapper.Map<R_User, AccountDto>(user);
             accountDto.Roles = roles.ToArray();
 
-            return Ok(new ResponseResultDto(accountDto));
+            return Ok(new ApiResponse(accountDto));
         }
 
 
@@ -118,7 +119,7 @@ namespace Revit.WebAPI.Controllers
                 return Ok();
             }
             //错误
-            var responseResult = new ResponseResultDto();
+            var responseResult = new ApiResponse();
             responseResult.SetError("原密码错误");
             return BadRequest(responseResult);
         }
