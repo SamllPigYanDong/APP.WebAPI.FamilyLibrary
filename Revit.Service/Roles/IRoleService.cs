@@ -12,6 +12,7 @@ namespace Revit.Service.Roles
         /// <param name="rolePageRequestDto"></param>
         /// <returns></returns>
         IEnumerable<RoleDto> GetAll();
+        RoleDto GetRole(long id);
 
         /// <summary>
         /// 搜索角色

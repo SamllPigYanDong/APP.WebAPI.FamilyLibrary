@@ -90,5 +90,16 @@ namespace Revit.Service.Roles
 
             return roleDtos;
         }
+
+        public RoleDto GetRole(long id)
+        {
+            var role=_roleRepository.Get(id);
+            if (role!=null)
+            {
+                var roleDto = _mapper.Map<RoleDto>(role);
+                return roleDto;
+            }
+            throw new ArgumentNullException("This role id is invalid");
+        }
     }
 }

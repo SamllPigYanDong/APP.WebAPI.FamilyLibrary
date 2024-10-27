@@ -33,4 +33,10 @@
 	  <Compile Remove="Users\R_UserRole.cs" />
 	  <Compile Remove="Users\R_UserToken.cs" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="System.ComponentModel.DataAnnotations">
+	    <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.ComponentModel.DataAnnotations.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 </Project>

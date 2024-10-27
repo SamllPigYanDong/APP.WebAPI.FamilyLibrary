@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Abp.Application.Services.Dto;
+using AutoMapper;
+using AutoMapper.Internal.Mappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Revit.Entity.Commons;
@@ -20,17 +22,17 @@ namespace Electric.API.Controllers
     //[R_Authorize]
     public class RolesController : ControllerBase
     {
-        private readonly IRoleService _roleRepositiory;
+        private readonly IRoleService _roleService;
         private readonly IRolePermissionService _rolePermissionRepositiory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<R_User> _userManager;
         private readonly RoleManager<R_Role> _roleManager;
         private readonly IMapper _mapper;
 
-        public RolesController(IRoleService roleRepositiory, IRolePermissionService rolePermissionRepositiory, IHttpContextAccessor httpContextAccessor,
+        public RolesController(IRoleService roleService, IRolePermissionService rolePermissionRepositiory, IHttpContextAccessor httpContextAccessor,
             UserManager<R_User> userManager, IMapper mapper, RoleManager<R_Role> roleManager)
         {
-            _roleRepositiory = roleRepositiory;
+            _roleService = roleService;
             _rolePermissionRepositiory = rolePermissionRepositiory;
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
@@ -38,17 +40,37 @@ namespace Electric.API.Controllers
             _roleManager = roleManager;
         }
 
+
+        [HttpGet("{id?}")]
+        public async Task<IActionResult> GetRoleForEdit(long? id)
+        {
+            RoleCreateDto roleEditDto = null;
+            if (id.HasValue) 
+            {
+                roleEditDto =_mapper.Map<RoleCreateDto>(_roleService.GetRole(id.Value));
+            }
+            else
+            {
+                roleEditDto = new RoleCreateDto() { };
+            }
+
+            return Ok(new ApiResponse(new GetRoleForEditOutput
+            {
+                Role = roleEditDto
+            }));
+        }
+
         /// <summary>
         /// 角色搜索
         /// </summary>
         /// <param name="rolePageRequestDto"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("pageList")]
         [UnitOfWork(IsTransactional = false)]
         public IActionResult Get([FromQuery] RolePageRequestDto rolePageRequestDto)
         {
             //角色搜索
-            var result = _roleRepositiory.Query(rolePageRequestDto);
+            var result = _roleService.Query(rolePageRequestDto);
 
             return Ok(new ApiResponse(result));
         }
@@ -61,7 +83,7 @@ namespace Electric.API.Controllers
         [UnitOfWork(IsTransactional = false)]
         public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
         {
-            var pageResults = _roleRepositiory.GetAll();
+            var pageResults = _roleService.GetAll();
             return Ok(new ApiResponse(pageResults));
         }
 
@@ -106,16 +128,10 @@ namespace Electric.API.Controllers
         {
             var R_Role = _mapper.Map<R_Role>(roleCreateDto);
 
-            //获取登录的用户
-            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            var creatorUser = await _userManager.FindByNameAsync(userName);
-
-            //添加角色
-            R_Role.CreatorId = creatorUser.Id;
             var result = await _roleManager.CreateAsync(R_Role);
             if (result.Succeeded)
             {
-                return Created(string.Empty, R_Role);
+                return Ok(new ApiResponse(roleCreateDto) );
             }
             else
             {
@@ -185,5 +201,8 @@ namespace Electric.API.Controllers
             await _roleManager.DeleteAsync(R_Role);
             return NoContent();
         }
+
+
+       
     }
 }
