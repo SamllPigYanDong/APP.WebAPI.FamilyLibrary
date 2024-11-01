@@ -15,7 +15,7 @@ namespace Revit.Service.Permissions
 {
     public class PermissionService : BaseService, IPermissionService
     {
-        private readonly IBaseRepository<R_Permission> _familiesRepository;
+        private readonly IBaseRepository<R_Permission> _permissionsRepository;
         private readonly IBaseRepository<R_User> _userRepository;
 
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Revit.Service.Permissions
         public PermissionService(IBaseRepository<R_Permission> permissionsRepository, IBaseRepository<R_User> userRepository, IMapper mapper):base(mapper)
         {
             _mapper = mapper;
-            _familiesRepository = permissionsRepository;
+            _permissionsRepository = permissionsRepository;
             _userRepository = userRepository;
         }
 
@@ -33,9 +33,7 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public  List<PermissionDto> GetAll()
         {
-           
-            var query = _familiesRepository.GetAll();
-
+            var query = _permissionsRepository.GetAll();
             var permissionDtos = new List<PermissionDto>();
             foreach (var item in query)
             {
@@ -56,7 +54,7 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public R_Permission? Get(long id)
         {
-            var item = _familiesRepository.Get(id);
+            var item = _permissionsRepository.Get(id);
             return item;
         }
 
@@ -67,14 +65,14 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public bool Update(R_Permission R_Permission)
         {
-            var count = _familiesRepository.Count(x => x.Code == R_Permission.Code && x.Id != R_Permission.Id);
+            var count = _permissionsRepository.Count(x => x.Code == R_Permission.Code && x.Id != R_Permission.Id);
             if (count > 0)
             {
                 return false;
             }
 
             R_Permission.LastModificationTime = DateTime.Now;
-            _familiesRepository.Update(R_Permission);
+            _permissionsRepository.Update(R_Permission);
 
             return true;
         }
@@ -86,13 +84,13 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public R_Permission Add(R_Permission R_Permission)
         {
-            var count = _familiesRepository.Count(x => x.Code == R_Permission.Code);
+            var count = _permissionsRepository.Count(x => x.Code == R_Permission.Code);
             if (count > 0)
             {
                 return null;
             }
 
-            _familiesRepository.Add(R_Permission);
+            _permissionsRepository.Add(R_Permission);
 
             return R_Permission;
         }
@@ -104,13 +102,13 @@ namespace Revit.Service.Permissions
         /// <returns></returns>
         public bool Delete(long id)
         {
-            var entity = _familiesRepository.Get(id);
+            var entity = _permissionsRepository.Get(id);
             if (entity == null)
             {
                 return false;
             }
 
-            _familiesRepository.Delete(entity);
+            _permissionsRepository.Delete(entity);
 
             return true;
         }

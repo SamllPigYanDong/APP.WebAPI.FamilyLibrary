@@ -2,15 +2,11 @@
 
 	<PropertyGroup>
 		<PlatformTarget>x64</PlatformTarget>
-		<TargetFrameworks>netstandard2;net472;</TargetFrameworks>
+		<TargetFrameworks>netstandard2;</TargetFrameworks>
+		<LanguageVersion>8.0</LanguageVersion>
 	</PropertyGroup>
 
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net472'">
-		<!--<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />-->
-		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2'">
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
